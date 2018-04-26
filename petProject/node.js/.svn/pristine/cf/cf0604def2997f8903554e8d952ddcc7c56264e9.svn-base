@@ -1,0 +1,67 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require("ykt-http-client");
+hc.url("192.168.43.202:3001");
+/* GET home page. */
+
+
+//渲染列表
+router.get('/', function (req, res, next) {
+  let page = req.query.page || 1;
+  let rows = req.query.rows || 7;
+  let type = req.query.type;
+  let value = req.query.value || '';
+  let obj = {};
+  if (type) {
+    obj[type] = value;
+  }
+  hc.get("/movies", { page, rows, ...obj }).then(function (data) {
+    res.send(data);
+  })
+})
+//新增
+router.post('/', function (req, res, next) {
+  let name = req.body.name;
+  let type = req.body.type;
+  let time = req.body.time;
+  let director = req.body.director;
+  let protagonist = req.body.protagonist;
+  let details = req.body.details;
+  hc.post("/movies", { name, type, time, director, protagonist, details }).then(function (data) {
+    res.send(data);
+  })
+})
+//删除
+router.delete('/:id', function (req, res, next) {
+  let id = req.params.id;
+  hc.delete("/movies/" + id).then(function (data) {
+      hc.delete("/addimg", { "moviesID.$id":id }).then(function (data) {
+        res.send("suc");
+      })
+  })
+
+})
+//修改  
+router.get('/:id', function (req, res, next) {
+  let id = req.params.id;
+  hc.get("/movies/" + id).then(function (data) {
+    // console.log("data::::::", data);
+    res.send(data);
+  })
+})
+router.put('/:id', function (req, res, next) {
+  let id = req.params.id;
+  let name = req.body.name;
+  let type = req.body.type;
+  let time = req.body.time;
+  let director = req.body.director;
+  let protagonist = req.body.protagonist;
+  let details = req.body.details;
+  // console.log("id", id);
+  hc.put("/movies/" + id, { name, type, time, director, protagonist, details }).then(function () {
+    res.send("suc");
+  })
+})
+module.exports = router;

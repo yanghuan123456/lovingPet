@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>电影列表</title>
+</head>
+<body>
+	<h1>电影列表</h1>
+	<div id="movietoolbar">
+		<input id="addmovie" style="width:250px"></input>
+	</div>
+	<div id="moviemm" style="width:120px">
+		<div data-options="name:'name',iconCls:'icon-ok'">电影名称</div>
+		<div data-options="name:'age',iconCls:'icon-ok'">电影类型</div>
+		<div data-options="name:'gender',iconCls:'icon-ok'">上映时间</div>
+	</div>
+	<div id="biaoge">
+		<table id="movietb"></table>
+	</div>
+
+</body>
+</html>

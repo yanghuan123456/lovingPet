@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>影院列表</title>
+</head>
+<body>
+    <h1>影院列表</h1>
+      <!-- 表格 -->
+    <div id="dataTable">
+        <table id="tb"></table>
+    </div>
+    <div id="toolbar">
+        <input id="searchValue" class="easyui-searchbox" style="width:300px" data-options="prompt:'请输入学生信息...',menu:'#mm'" />
+        <div id="mm" style="width:60px;height:80px">
+            <div data-options="name:'cinemaName'">影院</div>
+            <div data-options="name:'address'">地址</div>
+            <div data-options="name:'phone'">电话</div>
+        </div>
+    </div>
+</body>
+</html>

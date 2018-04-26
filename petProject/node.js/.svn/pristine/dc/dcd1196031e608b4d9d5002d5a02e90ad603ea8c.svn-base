@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>影厅修改</title>
+</head>
+
+<body>
+    <!-- 影厅修改 -->
+    <div id="hallUpdate" style="width:600px;margin:auto;margin-top:100px">
+            <input type="hidden" class="hallIdUpdate">
+            <form id="updateForm" method="post">
+                <div style="margin-bottom:20px;margin-left:50px">
+                    <input class="easyui-combobox" id="updateTheater" style="width: 300px" data-options="label:'影院:',required:true" , missingMessage="请选择影院名称">
+                </div>
+                <div style="margin-bottom:20px;margin-top:20px;margin-left:50px">
+                    <input class="easyui-textbox" id="hallnameUpdate" style="width: 300px" data-options="label:'影厅名:',required:true" , missingMessage="请输入影厅名称">
+                </div>
+                <input type="button" value="保存" id="saveBtn" style=" background-color: #ef4238;width: 50px;height: 30px;border:none;border-radius:12px;margin-left:140px;margin-right:40px">
+                <input type="button" value="取消" id="clearBtn" style=" background-color: #ef4238;width: 50px;height: 30px;border:none;border-radius:12px">
+            </form>
+        </div>
+</body>
+
+</html>

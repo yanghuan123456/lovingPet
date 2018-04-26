@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>猫眼后台管理</title>
+</head>
+<style>
+    #list {
+        font-size: 16px;
+    }
+
+    #list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    #list ul li {
+        color: white;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+        line-height: 40px;
+        width: 100%;
+        
+    }
+    .li{
+        font-size: 10px;
+    }
+    #list ul li:hover {
+        background: #43515e;
+        cursor: pointer;
+        color:darkcyan;
+    }
+    #tologin,#loginout:hover{
+        cursor: pointer;   
+    }
+</style>
+
+<body >
+<div class="easyui-layout" style="height:100%; width:100%">
+    <div data-options="region:'north'" style="height:100px;background:red;">
+        <h1 style="text-align: center;">猫眼后台管理</h1>
+        <div style="float:right;font-size:16px;margin-right:20px">  <span>尊敬的会员</span>  <b id="username"></b><span id="tologin">欢迎登陆</span> <span id="loginout">注销</span></div>
+    </div>
+
+    <div id="list" data-options="region:'west'" style=" width:150px;background:#293038;">
+        <ul>
+            <li style=" margin-left: -10px;" class="manage">电影管理
+                <li data-type="addmovie" class="li">电影新增</li>
+                <li data-type="movielist" class="li">电影列表</li>
+            </li>
+            <li style=" margin-left: -10px;" class="manage">影院管理
+                <li data-type="addcinema" class="li">影院新增</li>
+                <li data-type="cinemalist" class="li">影院列表</li>
+            </li>
+            <li style=" margin-left: -10px;" class="manage">影厅管理
+                <li data-type="addmovieHall" class="li">影厅新增</li>
+                <li data-type="movieHalllist" class="li">影厅列表</li>
+            </li>
+
+            <li style=" margin-left: -10px;" class="manage">用户管理
+                <li data-type="addusers" class="li">用户新增</li>
+                <li data-type="userslist" class="li">用户列表</li>
+            </li>
+            <li style=" margin-left: -10px;" data-type="addmovieSort" class="manage">排片管理
+            </li>
+        </ul>
+
+    </div>
+    <div id="tabs" class="easyui-tabs" data-options="region:'center'" style="padding:5px;background:#eee;"></div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+import login from"../login/index.js"
+import addcinema from"./addcinema/index.js"
+import addmovie from"./addmovie/index.js"
+// import {movieimg} from"./addmovie/index.js"
+import addmovieHall from"./addmovieHall/index.js"
+import addmovieSort from"./addmovieSort/index.js"
+import addusers from"./addusers/index.js"
+import cinemalist from"./cinemalist/index.js"
+import movielist from"./movielist/index.js"
+import movieHalllist from"./movieHalllist/index.js"
+import movieSortlist from"./movieSortlist/index.js"
+import userslist from"./userslist/index.js"
+let manage = function(){
+    $("#root").load("/mis/manage/manage.html",function(){
+        $.parser.parse();
+        $.ajax({
+            type:"get",
+                url:"/getSession",
+                success:function(data){
+                if(data==""){
+                    location.replace("#login");
+                    location.reload();
+                }
+                $("#username").html(data.phone);
+            }
+        })
+        $("#loginout").click(function(){
+            $.ajax({
+                type:"get",
+                url:"/removeSession",
+                success:function(){
+                    location.replace("#login");
+                    location.reload();
+                }
+            })
+        })
+        $("#list").delegate("li", "click", function () {
+            let type = $(this).attr("data-type")||"";
+            let obj ={addcinema,addmovie,addmovieHall,addmovieSort,addusers,cinemalist,movielist,movieHalllist,movieSortlist,userslist}
+            if(type!=""){
+                if (!$("#tabs").tabs("exists", $(this).html())) {
+                    $("#tabs").tabs("add", {
+                        title: $(this).html(),
+                        closable: true,
+                        href: "/mis/manage/"+type+"/"+type+".html",
+                        onLoad: function () {
+                            obj[type]();
+                        }
+                    })
+                }else{
+                    $("#tabs").tabs("select",$(this).html())
+                }
+            }
+        })
+        $('.li').css("display","none");
+        for(let i=0;i<5;i++){
+            let num=0;
+            let flag=false;
+            $(".manage").eq(i).click(function(){
+                num++;
+               if(num%2==1){
+                    $('.li').eq(2*i+1).css("display","block");
+                    $('.li').eq(2*i).css("display","block");  
+               }else{
+                    $('.li').eq(2*i+1).css("display","none");
+                    $('.li').eq(2*i).css("display","none"); 
+               }
+                
+            })
+        }
+    })
+}
+export {manage as default}

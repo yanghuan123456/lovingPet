@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+    <div id="con">
+    <h1>用户信息显示</h1>
+        
+    <div id="mianban" >
+        <input id="search" name="search"style="width:210px"></input> 
+        <div id="mm"> 
+        <div data-options="name:'phone'">手机号</div> 
+        <div data-options="name:'type'">用户类型</div>
+        </div> 
+    </div>
+    <div id="tab">
+        <table id="tt" pagination="true">
+        </table>
+    </div>
+    </div>
+</div>
+</body>
+</html>

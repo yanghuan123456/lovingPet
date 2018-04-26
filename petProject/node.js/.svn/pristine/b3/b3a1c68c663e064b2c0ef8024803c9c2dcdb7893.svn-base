@@ -1,0 +1,14 @@
+var express = require('express');
+var router = express.Router();
+const db = require('ykt-mongo');
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+router.get('/', function (req, res, next) {
+    let type = req.query.type;
+    hc.get("/"+type).then(function (data) {
+      res.send(data)
+    })
+  });
+  module.exports = router;

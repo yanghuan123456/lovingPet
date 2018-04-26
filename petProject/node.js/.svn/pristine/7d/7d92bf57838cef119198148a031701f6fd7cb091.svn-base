@@ -1,0 +1,65 @@
+import movielist from "../movielist/index.js";
+import addimg from "../addimg/index.js";
+let addmovie = function () {
+    $('#tabs').tabs('close', "电影列表");
+    $('#tabs').tabs('close', "图片新增");
+    $('#tupian').linkbutton('disable');
+    $("#tijiao").on("click", function () {
+        $('#tupian').linkbutton('enable');
+        $.ajax({
+            type: "post",
+            url: "/addmovie",
+            data: {
+                name: $("#name").val(),
+                type: $("#type").val(),
+                time: $("#time").val(),
+                director: $("#director").val(),//导演
+                protagonist: $("#protagonist").val(),//主演
+                details: $("#details").val(),//详情 
+            },
+            success: function (data) {
+                // console.log("data._id", data._id)
+                let ID = data._id;
+                let moviename1 = data.name;
+                // console.log("123")
+                $("#tupianpkc").on("click", function () {
+                    $("#name").textbox('setValue', "");
+                    $("#time").textbox('setValue', "");
+                    $("#type").textbox('setValue', "");
+                    $("#director").textbox('setValue', "");
+                    $("#protagonist").textbox('setValue', "");
+                    $("#details").val("");
+                    if (!$("#tabs").tabs("exists", "图片新增")) {
+                        // console.log("无面板");
+                        $("#tabs").tabs("add", {
+                            title: "图片新增",
+                            closable: true,
+                            href: "/mis/manage/addimg/addimg.html",
+                            onLoad: function () {
+                                $('#tabs').tabs('close', "电影新增");
+                                addimg(ID, moviename1);
+                            }
+                        })
+                    }
+                    else {
+                        // console.log("有面板");
+                        addimg(ID, moviename1);
+                        $('#tabs').tabs('select', "图片新增");
+                        $('#tabs').tabs('close', "电影新增");
+                    }
+                    $('#tupian').linkbutton('disable');
+
+                })
+
+
+            }
+        })
+    })
+    $("#clearform").on("click", function () {
+        function clearForm() {
+            $('#fff').form('clear');
+        }
+        clearForm();
+    })
+}
+export { addmovie as default }

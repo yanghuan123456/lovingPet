@@ -1,0 +1,96 @@
+import usersUpData from"./usersUpData.js"
+let userslist = function () {
+    $("#con").load("/mis/manage/userslist/userslist.html",function(){
+    $.parser.parse();
+    // 页面渲染
+    let render = function (ary) {
+        $("#tt").datagrid("reload");
+    }
+
+    // 表格
+    $("#tt").datagrid({
+        columns: [[
+            { field: 'phone', title: '手机号', width: 200, align: "center" },
+            { field: 'pwd', title: '密码', width: 100, align: "center" },
+            { field: 'type', title: '用户类型', width: 100, align: "center" },
+            {
+                field: 'operate', title: '操作', width: 200, align: "center",
+                formatter: function (value, row, index) {
+                    let str = "";
+                    str += `<a href="#" class="easyui-linkbutton update-btn" data-id=${row._id} data-options="iconCls:'icon-edit'">修改</a>`
+                    str += `<a href="#" class="easyui-linkbutton del-btn" data-id=${row._id} data-options ="iconCls:'icon-remove'">删除</a>`
+                    return str;
+                }
+            }
+        ]],
+        method: "get",
+        url: "/userslist",
+        toolbar: '#mianban',
+        pageSize: 10,
+        pageList: [5, 10, 15, 20],
+        onLoadSuccess: function () {
+            $(".update-btn").linkbutton({
+                iconCls: 'icon-edit'
+            });
+            $(".del-btn").linkbutton({
+                iconCls: 'icon-remove'
+            })
+        }
+
+    })
+    // 搜索框
+    $('#search').searchbox({
+        searcher: function (value, name) {
+            $("#tt").datagrid("reload", { name, value });
+        },
+        menu: '#mm',
+        prompt: '搜索'
+    });
+    //删除
+    $("#tab").delegate("a.del-btn", "click", function () {
+        let id = $(this).attr("data-id");
+        $.messager.confirm('确认', '您确认想要删除该用户吗？', function (r) {
+            if (r) {
+                $.ajax({
+                    type: "delete",
+                    url: "/userslist/" + id,
+                    success: function () {
+                        render();
+                    }
+                });
+
+            }
+        });
+
+    })
+
+    // 修改
+    $("#tab").delegate("a.update-btn", "click", function () {
+        let id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/userslist/" + id,
+            success: function (data) {
+                $("#tabs").tabs("close","用户列表");
+
+                $("#tabs").tabs("add", {
+                    title: "用户修改",
+                    closable: true,
+                    href: "/mis/manage/userslist/usersUpData.html",
+                    onLoad: function () {
+                        usersUpData(data);
+                    }
+                })
+            }
+        })
+    })
+    render();
+    if(!$("#tabs").tabs("exists","用户列表")){
+        // $("#tabs").tabs("close","用户修改");
+    }else{
+        $("#tabs").tabs("close","用户修改");
+        $("#tabs").tabs("close","用户新增");
+    }
+});
+}
+export {userslist as default};

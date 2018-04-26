@@ -1,0 +1,79 @@
+// import login from "../login/index.js";
+// let regiester=function(){
+    
+// }
+// export {regiester as default}
+
+import login from "../login/index.js";
+
+let register=function(){
+    $("#root").load("/mis/regiester/regiester.html",function(){//主页面加载注册页面
+        $.parser.parse();//重新加载整个页面
+        $("#button a:first-child").click(function(){
+            if($('#ff').form("validate")){
+                $.ajax({
+                    type:'post',
+                    url:'/users/regiester',
+                    data:{
+                        phone:$("#phone").val(),
+                        pwd:$("#pwd").val(),
+                        email:$("#email").val()
+                        
+                    },
+                    success:function(){
+                        $.messager.alert('提示','注册成功','',function(){
+                            // login();
+                            location.replace("#login");
+                            location.reload();
+                            console.log("assasda")
+                            
+                        });
+                    }
+                })
+            }
+        });
+        $("#button a:last-child").click(function(){
+            $('#ff').form('clear');
+        })
+        $("#pan").panel({
+            collapsible:true,
+            closable:true,
+            iconCls:'icon-save',
+            minimizable:true,
+            maximizable:true
+        });
+        $.extend($.fn.validatebox.defaults.rules, {    
+            equal: {    
+                validator: function(value,param){
+                    return value == $(param[0]).val(); 
+                },   
+                message: '两次密码不一致！'   
+            },
+            isRepeat:{
+                validator: function(value,param){
+                    let status;
+                    $.ajax({
+                        async:false,//同步
+                        type:"get",
+                        url:'/users/isPhoneExist',
+                        data:{phone:value},
+                        success:function(data){
+                            status=data.status;
+                        }
+                    });
+                    return status;
+                },   
+                message: '已注册！'
+            } ,
+            equals: {    
+                validator: function(value,param){    
+                    return param[0].test(value);  
+                },    
+                message: '格式不正确！'
+            }
+        });
+
+    });  
+}
+
+export {register as default};

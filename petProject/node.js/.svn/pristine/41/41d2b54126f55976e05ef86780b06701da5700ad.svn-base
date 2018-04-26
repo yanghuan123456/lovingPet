@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+    <title>页面</title>
+</head>
+<style>
+html,body,#root{
+    height: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+</style>
+<body>
+   <div id="root"></div> 
+   <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+   <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+   <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+   <script type="module" src="index.js"></script>
+</body>
+</html>

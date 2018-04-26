@@ -1,0 +1,57 @@
+let addusers=function(){
+    $.parser.parse();
+    $.extend($.fn.validatebox.defaults.rules, { 
+        patter:{
+            validator:function(value,param){
+                return param[0].test(value);
+            },
+            message: '输入有误'  
+        },
+        isRepeat:{
+            validator:function(value,param){
+                return value == $("#pwd").val();
+            },
+            message: '两次密码输入不正确'  
+        },
+        phoneRepeat:{
+            validator:function(value,param){
+                let newdata;             
+                $.ajax({
+                    async:false,//设置为同步，先判断完手机号，在运行后面。
+                    type:"get",
+                    url:"/addusers/isrepit",
+                    data:{phone:value},
+                    success:function(data){
+                        newdata=data.status;
+                    }
+                })
+                return newdata;
+            },
+            message: '你的手机号已注册'  
+        }       
+    })
+    $("#submitBtn").on("click",function(){
+        if($("#ff").form("validate")){
+            $.ajax({
+                type:"post",
+                url:"/addusers/register",
+                data:{
+                    phone:$("#phone").val(),
+                    pwd:$("#pwd").val(),
+                },success:function(){
+                    $.messager.alert('提示', '新增成功', '', function () {
+                        $("#tabs").tabs("close","用户新增");
+                    });   
+                }
+            });
+        }
+    })
+
+    if(!$("#tabs").tabs("exists","用户新增")){
+        // $("#tabs").tabs("close","用户修改");
+    }else{
+        $("#tabs").tabs("close","用户修改");
+        $("#tabs").tabs("close","用户列表");
+    }
+}
+export { addusers as default}

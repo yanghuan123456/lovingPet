@@ -1,0 +1,43 @@
+import movieHalllist from "../movieHalllist/index.js" 
+let addmovieHall = function () {
+                $("#tabs").tabs('close','影厅修改');
+                $("#tabs").tabs('close','影厅列表')
+        $.parser.parse();
+        // $("#theater").combobox("reload", "/users");//重新加载下拉列表
+        $("#theater").combobox({
+                url: "/addmovieHall",
+                textField: "cinemaName",
+                valueField: "_id",
+                method: "get"
+        })
+        $("#subimtBtn").click(function () {
+                let cinemaId = $("#theater").combobox("getValue");
+                let hallname = $("#hallnameAdd").val();
+                $.ajax({
+                        type: "post",
+                        url: "/addmovieHall",
+                        data: { cinemaId, hallname },
+                        success: function () {
+                                let re = movieHalllist();
+                                re();
+                        }
+                })
+                $("#hallForm").form('clear');
+                $("#tabs").tabs('close',"影厅新增");
+                $("#tabs").tabs('add',{
+                        title:'影厅列表',
+                        closable:true,
+                        href:"/mis/manage/movieHalllist/movieHalllist.html",
+                        onload:function(){
+                                movieHalllist();
+                        }
+                });
+        })
+        $("#cancleBtn").click(function () {
+                $("#hallForm").form('clear');
+                $("#tabs").tabs('close',"影厅新增");
+        })
+   
+       
+}
+export { addmovieHall as default}

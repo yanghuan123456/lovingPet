@@ -1,0 +1,33 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+/* GET home page. */
+router.get('/', function (req, res, next) {
+  hc.get('/cinemas').then(function (data) {
+    res.send(data);
+  })
+});
+//增加
+router.post('/', function (req, res, next) {
+  let cinemaId = req.body.cinemaId;
+  let name = req.body.hallname;
+  hc.post("/movieHalls", { name, cinemas: JSON.stringify({ $ref: "cinemas", $id: cinemaId }) }).then(function (data) {
+    let id = data._id;
+    const seats = [];
+    for (let i = 1; i <= 9; i++) {
+      for (let j = 1; j <= 9; j++) {
+        seats.push({
+          seatName: `${i}排${j}号`,
+          movieHalls:{ $ref: "movieHalls", $id:id }
+        })
+      }
+    }
+    hc.post("/seats", { submitType: "addMore", data: JSON.stringify(seats) }).then(data => {
+        res.send("suc")
+    })
+  })
+})
+module.exports = router;

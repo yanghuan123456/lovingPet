@@ -1,0 +1,62 @@
+var express = require('express');
+var router = express.Router();
+const db = require('ykt-mongo');
+const hc = require("ykt-http-client");
+hc.url("192.168.43.202:3001");
+
+/* GET users listing. */ //二级路由
+router.get('/', function (req, res, next) {
+  hc.get("/classes").then(function (data) {
+    res.send(data);
+  });
+});
+
+//post提交
+router.post('/regiester', function (req, res, next) {
+  let phone = req.body.phone; //post是body提交
+  let pwd = req.body.pwd;
+  hc.post("/users",{phone,pwd,type:"后台管理员"}).then(function(){
+    res.send("suc");
+  });
+  // db.collection("users").insert({phone,pwd}, function () {
+  //   res.send("suc");
+  // })
+});
+// 注册验证
+router.get('/isPhoneExist', function (req, res, next) {
+  let phone = req.query.phone;
+  hc.get("/users",{phone}).then(function(data){
+    if (data.length > 0) {
+        res.send({
+            info: '手机号重复',
+            status: 0
+        });
+    } else {
+        res.send({
+            info: '手机号可用',
+            status: 1
+        });
+    }
+  });
+
+});
+// 登录验证
+router.post('/isPhoneTrue', function (req, res, next) {
+  let phone = req.body.phone;
+  let pwd = req.body.pwd;
+  hc.get("/users",{phone,pwd}).then(function(data){
+    if (data.length>0) {
+      console.log(data)
+          req.session.user = data[0];
+          res.send({
+            status: 1
+          });
+        } else {
+          res.send({
+            status: 0
+          });
+        }
+  });
+  
+});
+module.exports = router;

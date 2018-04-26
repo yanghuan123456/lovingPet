@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>电影修改</title>
+</head>
+<body>
+    <div id="allform" style="width:500px;margin:auto">
+        <form id="ff" method="get">
+            <div style="margin-bottom:20px;margin-top:20px">
+                <input class="easyui-textbox" id="name1" name="name1" style="width:450px" data-options="label:'电影名称:',required:true,missingMessage:'请输入电影名称'">
+            </div>
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" id="type1" name="type1" style="width:450px" data-options="label:'电影类型:',required:true,missingMessage:'请输电影类型'">
+            </div>
+            <div style="margin-bottom:20px">
+                <input  id="time1"  type= "text" class= "easyui-datebox" style="width:450px" required ="required" data-options="label:'上映时间:',required:true,missingMessage:'请输上映时间'"> </input>   
+                <!-- <input class="easyui-textbox" id="time1" name="time1" style="width:450px" data-options="label:'上映时间:',required:true,missingMessage:'请输上映时间'"> -->
+            </div>
+            <div style="margin-bottom:20px">
+                <!-- 导演 -->
+                <input class="easyui-textbox" id="director1" name="director1" style="width:450px" data-options="label:'导演:',required:true,missingMessage:'请输导演'">
+            </div>
+            <div style="margin-bottom:20px">
+                <!-- 主演 -->
+                <input class="easyui-textbox" id="protagonist1" name="protagonist1" style="width:450px" data-options="label:'主演:',required:true,missingMessage:'请输主演'">
+            </div>
+            <div style="margin-bottom:20px;display:flex">
+                <!-- 电影详情 -->
+                <span style="margin-top:50px;margin-right:35px">电影详情:</span>
+                <p>
+                    <textarea cols="54" rows="10" id="details1" style="width:364px" data-options="required:true,missingMessage:'请输电影详情'"></textarea>
+                </p>
+            </div>
+        </form>
+        <div style="text-align:center;padding:5px 0">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="meth" style="width:80px;margin-left:80px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="clear1" style="width:80px">清空</a>
+        </div>
+    </div>
+<!--修改 -->
+</body>
+</html>

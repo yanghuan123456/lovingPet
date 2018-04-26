@@ -1,0 +1,40 @@
+import cinemalist from "../cinemalist/index.js";
+import addmovieHall from "../addmovieHall/index.js";
+let addcinema = function () {
+    $("#tabs").tabs("close","影院列表");
+    $("#tabs").tabs("close","修改影院");
+    $.parser.parse();
+    let cmlist = function () {
+        $("#tabs").tabs("add", {
+            title: "影院列表",
+            closable: true,
+            href: "/mis/manage/cinemalist/cinemalist.html",
+            onLoad: function () {
+                // eval(type+"()");
+                // console.log( obj[type])
+                cinemalist();
+                $("#tabs").tabs("close","影院新增")
+            }
+        })
+    }
+    $("#save").click(function () {
+        let cinemaName = $("#cinemaName").val();
+        let address = $("#address").val();
+        let phone = $("#addPhone").val();
+        $.ajax({
+            type: 'post',
+            url: '/addcinema',//路由
+            data: { cinemaName, address, phone },
+            success: function () {
+                cmlist();
+            }
+        });
+    })
+    $("#cancel").click(function () {
+        cmlist();
+    })
+
+}
+
+
+export { addcinema as default }

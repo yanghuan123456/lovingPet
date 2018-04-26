@@ -1,0 +1,45 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc=require("ykt-http-client");
+hc.url("192.168.43.202:3001");
+/* GET home page. */
+// 查找资源
+router.get("/",function(req,res,next){ 
+  let page=req.query.page||1;
+  let rows=req.query.rows||5;
+  let ID=req.query.ID;
+    hc.get("/addimg",{"moviesID.$id":ID,page,rows,submitType:"findJoin",ref:"movies"}).then(function(data){
+      res.send(data);
+  })
+})
+// 增加
+router.post("/",function(req,res,next){
+  let headimg=req.body.headimg;
+  let moviesId=req.body.moviesId;
+  let addimg=req.body.addimg;
+  hc.post("/addimg",{headimg,addimg,"moviesID":JSON.stringify({$ref:"movies",$id:moviesId})}).then(function(data){
+      res.send(data);
+  })
+})
+// 删除
+router.delete("/:id",function(req,res,next){
+  let id=req.params.id
+  hc.delete("/addimg/"+id).then(function(){
+      res.send("suc");
+  })
+})
+
+// 上传图片
+router.post("/upload",function(req,res,next){
+  let form=new multiparty.Form({uploadDir:'./public/mis/upload'});
+  form.parse(req,function(err,fiwlds,files){
+    if(err){
+      res.send(err);
+    }else{
+      res.send(files.HeadImg[0].path.replace("public","").replace("/\\/g","/"));
+    }
+  })
+})
+module.exports = router;

@@ -1,0 +1,157 @@
+let movieHalllist = function () {
+    $("#tabs").tabs("close", "修改影厅");
+    $("#tabs").tabs("close", "影厅新增");
+    // $.parser.parse();
+    //页面渲染
+    let render = function () {
+        $("#hallTable").datagrid("reload");
+    }
+
+    //表格
+    $('#hallTable').datagrid({
+        columns: [[
+            {
+                field: 'cinemas', title: '影院', width: 300, align: 'center',
+                formatter: function (val, row, index) {
+                    return val ? val.cinemaName : val;
+                }
+            },
+            { field: 'name', title: '影厅', width: 200, align: 'center' },
+            {
+                field: "operate",
+                title: "操作",
+                width: 200,
+                align: 'center',
+                formatter: function (val, row, index) {
+                    let str = "";
+                    str += `<a href= "#" class = "easyui - linkbutton update-btn" data-id=${row._id} data-options ="iconCls:'icon-edit'">更新</a>`;
+                    str += `<a href= "#" class = "easyui - linkbutton del-btn" data-id=${row._id} data-options ="iconCls:'icon-remove'">删除</a>`;
+                    return str;
+                }
+            }
+        ]],
+        method: "get",
+        url: "/movieHalllist",
+        toolbar: '#hallBar',
+        pagination: true,
+        pagePosition: "bottom",
+        pageSize: 5,
+        height:452,
+        pageList: [5, 10, 15, 20],
+        onLoadSuccess: function () {
+            $(".update-btn").linkbutton({
+                iconCls: 'icon-edit'
+            });
+            $(".del-btn").linkbutton({
+                iconCls: 'icon-remove'
+            })
+        }
+    });
+    //修改
+
+    
+    let movie = function (e) {
+        $("#tabs").tabs("close","影厅列表");
+        let id = $(e.target).parents("a").attr("data-id");
+        if (!$("#tabs").tabs("exists","影厅修改")) {
+            $("#tabs").tabs("add", {
+                title: "影厅修改",
+                closable: true,
+                href: "/mis/manage/updatemovieHall/updatemovieHall.html",
+                onLoad: function () {
+                    //预备修改
+                    $("#updateTheater").combobox({
+                        url: "/addmovieHall",
+                        textField: "cinemaName",
+                        valueField: "_id",
+                        method: "get",
+                        disabled:true,
+                    })
+                    $.ajax({
+                        type: "get",
+                        url: "/movieHalllist/" + id,
+                        success: function (data) {
+                            $("#hallIdUpdate").val(data._id);
+                            $("#hallnameUpdate").textbox("setValue", data.name);
+                            $("#updateTheater").combobox("setValue", data.cinemas.cinemaName);
+                        }
+                    })
+                    //修改并保存
+                    $("#saveBtn").click(function () {
+                        let hallnameUpdate = $("#hallnameUpdate").val();
+                        // let updateTheaterId = $("#updateTheater").combobox("getValue");
+                        // console.log("前端", hallnameUpdate);
+                        $.ajax({
+                            type: "put",
+                            url: "/movieHalllist/" + id,
+                            data: { hallnameUpdate },
+                            success: function () {
+                                render();
+                                $("#updateForm").form('clear');  
+                            }
+                        })
+                        $("#tabs").tabs('close',"影厅修改")
+                        $("#tabs").tabs("add", {
+                            title: "影厅列表",
+                            closable: true,
+                            href: "/mis/manage/movieHalllist/movieHalllist.html",
+                            onLoad: function () {
+                                // eval(type+"()");
+                                // console.log( obj[type])
+                                movieHalllist();
+                                
+                            }
+                        })
+                    })
+                    $("#clearBtn").click(function () {
+                        $("#updateForm").form('clear');
+                        $("#tabs").tabs('close',"影厅修改");
+                        $("#tabs").tabs("add", {
+                            title: "影厅列表",
+                            closable: true,
+                            href: "/mis/manage/movieHalllist/movieHalllist.html",
+                            onLoad: function () {
+                                // eval(type+"()");
+                                // console.log( obj[type])
+                                movieHalllist();
+                                
+                            }
+                        })
+                    })
+                }
+            })
+        } else {
+            $("#tabs").tabs("select", "影厅修改")
+        }
+
+
+    }
+    $("#hallOuter").delegate("a.update-btn", "click", movie)
+    //删除
+    $("#hallOuter").delegate("a.del-btn", "click", function (e) {
+        let id = $(e.target).parents("a").attr("data-id");
+        $.messager.confirm('确认', '您确认想要删除该影厅吗？', function (r) {
+            if (r) {
+                $.ajax({
+                    type: "delete",
+                    url: "/movieHalllist/" + id,
+                    success: function () {
+                        render();
+                    }
+                })
+            }
+        });
+    })
+
+    //搜索
+    $("#searchHallBtn").searchbox({
+        searcher: function (value, name) {
+            $("#tb").datagrid("reload", { type: name, value });
+        }
+    })
+
+    render();
+    return render;
+    
+}
+export { movieHalllist as default}

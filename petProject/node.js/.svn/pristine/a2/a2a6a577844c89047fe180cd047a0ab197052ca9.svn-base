@@ -1,0 +1,17 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require("ykt-http-client");
+hc.url("192.168.43.202:3001");
+
+// 增加
+router.post('/', function (req, res, next) {
+    let phone=req.body.phone;
+    let cinemaName=req.body.cinemaName;
+    let address=req.body.address;
+    hc.post("/cinemas",{cinemaName,address,phone}).then(function(){//cinemas集合
+        res.send("suc");
+    });
+});
+module.exports = router;

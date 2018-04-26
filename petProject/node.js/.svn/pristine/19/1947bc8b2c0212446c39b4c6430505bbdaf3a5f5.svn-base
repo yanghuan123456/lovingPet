@@ -1,0 +1,135 @@
+
+import addmovie from "../addmovie/index.js";
+let id = null;
+let movielist = function () {
+    $('#tabs').tabs('close', "电影新增");
+    $("#movietb").datagrid({
+        columns: [[
+            // { field: 'paixu', title: '排序', width: 150 },
+            { field: 'name', title: '电影名称', width: 150 },
+            { field: 'type', title: '电影类型', width: 150 },
+            { field: 'time', title: '上映时间', width: 150 },
+            { field: 'director', title: '导演', width: 150 },
+            { field: 'protagonist', title: '主演', width: 150 },
+            { field: 'details', title: '详情', width: 150 },
+            // {
+            //     field: 'classes', title: '班级', width: 150,
+            //     formatter: function (value, row, index) {
+            //         console.log(value);
+            //         return value ? value.name : value;
+            //     }
+            // },
+            {
+                field: 'operate', title: '操作', width: 250,
+                formatter: function (value, row, index) {
+                    let str = '';
+                    str += `<a href="#" class="easyui-linkbutton update-btn" data-id="${row._id}">修改</a>`;
+                    str += `<a href="#" class="easyui-linkbutton del-btn" data-id="${row._id}">删除</a>`;
+                    return str;
+                }
+            }
+        ]],
+        rownumbers: true,
+        pagination: true,
+        toolbar: '#movietoolbar',
+        pageList: [3, 5, 10],
+        method: "get",
+        url: "/addmovie",
+        onLoadSuccess: function () {
+            $(".update-btn").linkbutton({
+                iconCls: 'icon-edit'
+            });
+            $(".del-btn").linkbutton({
+                iconCls: 'icon-remove'
+            });
+        }
+    })
+    //渲染页面
+    var show = function () {
+        $("#movietb").datagrid("reload");
+    }
+    show();
+    //查询
+    $('#addmovie').searchbox({
+        searcher: function (value, name) {
+            $("#movietb").datagrid("reload", { type: name, value });
+        },
+        menu: '#moviemm',
+        prompt: '请输入值'
+    });
+    //删除
+    $("#biaoge").delegate("a.del-btn", "click", function () {
+        let id = $(this).attr("data-id");
+        $.ajax({
+            type: "delete",
+            url: "/addmovie/" + id,
+            success: function () {
+                show();
+            }
+        })
+    });
+    //修改
+
+    $("#biaoge").delegate("a.update-btn", "click", function () {
+        id = $(this).attr("data-id");
+        if (!$("#tabs").tabs("exists", "电影修改")) {
+            $("#tabs").tabs("add", {
+                title: "电影修改",
+                closable: true,
+                href: "/mis/manage/addmovie/xiugaimovie.html",
+                onLoad: function () {
+                    $.ajax({
+                        type: "get",
+                        url: "/addmovie/" + id,
+                        success: function (data) {
+                            $("#name1").textbox('setValue', data.name);
+                            $("#time1").textbox('setValue', data.time);
+                            $("#type1").textbox('setValue', data.type);
+                            $("#director1").textbox('setValue', data.director);
+                            $("#protagonist1").textbox('setValue', data.protagonist);
+                            $("#details1").val(data.details);
+                        }
+                    })
+                    $("#meth").on("click", function () {
+                        $.ajax({
+                            type: "put",
+                            url: "/addmovie/" + id,
+                            data: {
+                                id: id,
+                                name: $("#name1").val(),
+                                type: $("#type1").val(),
+                                time: $("#time1").val(),
+                                director: $("#director1").val(),//导演
+                                protagonist: $("#protagonist1").val(),//主演
+                                details: $("#details1").val(),//详情
+                            },
+                            success: function () {
+                                $('#tabs').tabs('close', "电影修改");
+                                $('#tabs').tabs('select', "电影列表");                                
+                                show();
+                            }
+                        })
+                    })
+                }
+
+            })
+        } else {
+            
+            $('#tabs').tabs('select', "电影修改");
+            $.ajax({
+                type: "get",
+                url: "/addmovie/" + id,
+                success: function (data) {
+                    $("#name1").textbox('setValue', data.name);
+                    $("#time1").textbox('setValue', data.time);
+                    $("#type1").textbox('setValue', data.type);
+                    $("#director1").textbox('setValue', data.director);
+                    $("#protagonist1").textbox('setValue', data.protagonist);
+                    $("#details1").val(data.details);
+                    // id = null;
+                }
+            })
+        }
+    })
+}
+export { movielist as default };

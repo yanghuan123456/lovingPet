@@ -1,0 +1,48 @@
+let usersUpData = function(data){
+    $.parser.parse();
+
+    // console.log("user里的data",id)
+    $("#newphone").textbox("setValue", data.phone);
+    $("#oldpwd").textbox("setValue", data.pwd);
+
+
+    $.extend($.fn.validatebox.defaults.rules, { 
+        patter:{
+            validator:function(value,param){
+                return param[0].test(value);
+            },
+            message: '输入有误'  
+        },
+        isRepeat:{
+            validator:function(value,param){
+                return value == $("#newpwd").val();
+            },
+            message: '两次密码输入不正确'  
+        }      
+    })
+
+
+    $("#upDataBtn").on("click",function(){
+        let id = data._id;
+        console.log(id)
+        if($("#fm").form("validate")){
+            $.ajax({
+                type:"put",
+                url:"/userslist/"+id,
+                data:{
+                    phone:$("#newphone").val(),
+                    pwd:$("#newpwd").val(),
+                },success:function(){
+                    $.messager.alert('提示', '修改成功', '', function () {
+                        $("#tabs").tabs("close","用户修改");
+                    });   
+                }
+            });
+        }
+    })
+    $("#backBtn").click(function(){
+        $("#tabs").tabs("close","用户修改");
+    })
+}
+
+export{usersUpData as default};

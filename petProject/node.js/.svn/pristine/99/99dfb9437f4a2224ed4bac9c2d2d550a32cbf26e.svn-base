@@ -1,0 +1,58 @@
+import  movieHalllist  from "../movieHalllist/index";
+//修改
+// let a = movie();
+// console.log(a);
+
+let updatemovieHall = function () {
+        $("#updateTheater").combobox({
+            url: "/addmovieHall",
+            textField: "cinemaName",
+            valueField: "_id",
+            method: "get"
+        })
+        let id = $(e.target).parents("a").attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/students/" + id,
+            success: function (data) {
+                console.log("hhh", data);
+                $('#updateImg').attr("src", data.path);
+                $("#idUpdate").val(data._id);
+                $("#nameUpdate").textbox("setValue", data.name);
+                $("#ageUpdate").textbox("setValue", data.age);
+                $("#genderUpdate").textbox("setValue", data.gender);
+                $('#updateJob').textbox("setValue", data.job);
+                $("#updateclassname").textbox('setValue', data.classes.classname);
+            }
+        })
+    $("#update").dialog({
+        buttons: [{
+            text: '保存',
+            handler: function () {
+                let id = $("#idUpdate").val();
+                let name = $("#nameUpdate").val();
+                let age = $("#ageUpdate").val();
+                let gender = $("#genderUpdate").val();
+                let path = $("#imgUpdate").val();
+                let job = $("#updateJob").val();
+                let classesId = $("#updateclassname").combobox("getValue");
+                $.ajax({
+                    type: "put",
+                    url: "/students/" + id,
+                    data: { name, age, gender, path, job, classesId },
+                    success: function () {
+                        $("#f2").form('clear');
+                        render();
+                        $("#update").dialog("close");
+                    }
+                })
+            }
+        }, {
+            text: '关闭',
+            handler: function () {
+                $("#update").dialog("close");
+            }
+        }]
+    })
+
+}

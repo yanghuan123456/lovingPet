@@ -1,0 +1,19 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+router.get('/getSession',function(req, res, next){
+  let user =req.session.user||"";
+  res.send(user)
+});
+router.get('/removeSession',function(req, res, next){
+  req.session.user=null;
+  res.send("suc")
+});
+module.exports = router;

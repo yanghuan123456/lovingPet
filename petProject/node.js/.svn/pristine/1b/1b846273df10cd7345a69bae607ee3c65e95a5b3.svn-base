@@ -1,0 +1,60 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require("ykt-http-client");
+hc.url("192.168.43.202:3001");
+
+/* GET home page. */
+// router.get('/', function(req, res, next) {
+//   res.render('cinemas', { title: 'Express' });
+// });
+
+router.get("/", function (req, res, next) {//加载
+  let page = req.query.page || 1;
+  let rows = req.query.rows || 5;
+  // let cinemaName=req.query.cinemaName;
+  // let address=req.query.address;
+  let name = req.query.type;
+  let value = req.query.value;
+  let obj={};
+  if(name){
+      obj[name]=value;
+  }
+  hc.get("/cinemas", {page , rows , ...obj}).then(function (data) {
+      res.send(data);
+  });
+});
+
+// 修改
+router.get("/:id",function(req, res, next){
+  let id=req.params.id;
+  hc.get("/cinemas/"+id).then(function(data){
+      res.send(data);//返回对象
+  })
+});
+router.put("/:id",function(req, res, next){
+  console.log("sadsarfgtsadvgycycycyff")
+  let id=req.params.id;//params获取路径id
+  let cinemaName=req.body.cinemaName;
+  let address=req.body.address;
+  let phone=req.body.phone;
+  hc.put("/cinemas/"+id,{cinemaName,address,phone}).then(function(){
+      res.send("suc");
+  })
+});
+// 删除
+router.delete("/:id",function(req, res, next){//冒号代表路径可变的
+  let id=req.params.id;
+  hc.delete("/cinemas/"+id).then(function(){
+      res.send("suc");
+      hc.delete("/movieHalls",{id}).then(function(){
+        res.send("suc");
+       
+    })
+  })
+  
+}) ;
+
+
+module.exports = router;

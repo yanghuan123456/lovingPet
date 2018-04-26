@@ -1,0 +1,4 @@
+let movieSortlist=function(){
+    // console.log("教师管理！")
+}
+export { movieSortlist as default}

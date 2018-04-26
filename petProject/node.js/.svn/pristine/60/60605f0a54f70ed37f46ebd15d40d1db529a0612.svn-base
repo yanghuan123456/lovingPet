@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片新增</title>
+</head>
+<body>
+    
+
+    <div style="margin-bottom:20px">
+        <select id="addimg" class="easyui-combobox" data-options="label:'图片类型:'" style="width:300px">      
+            <option>主页图片</option>   
+            <option>副页图片</option>   
+        </select>  
+    </div>
+   
+    <div style="margin-bottom:20px">
+        <input class="easyui-filebox" name="HeadImg" id="HeadImg" style="width:143px" buttonText="选择文件"  multiple="true" data-options="label:'图片上传:'">
+        <span id="kh1">未选择任何文件</span>
+    </div>
+    <span>图片列表</span>
+    <div id="toolbar1">
+        <p id="kh3" style="font-size:20px"></p>
+    </div>
+    <div id="dataTableimg">
+    <table id="tb1">
+    </table>  
+    </div>
+</body>
+</html>

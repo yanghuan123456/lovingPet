@@ -1,0 +1,37 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+/* GET home page. */
+router.get("/", function (req, res, next) {//加载
+  let movieid=req.query.movieid||"";
+  let cinemaid=req.query.cinemaid||"";
+  let hallid = req.query.hallid||"";
+  let date = req.query.time||"";
+  hc.get("/movieSorts", {date,movieid,hallid,cinemaid,submitType:"findJoin",ref:["movies","cinemas","movieHalls"]}).then(function (data) {
+      res.send(data);
+
+  })
+})
+router.post("/", function (req, res, next) {//增加
+  let movieid = req.body.movieid;
+  let date = req.body.date;
+  let price = req.body.price;
+  let cinemaid = req.body.cinemaid;
+  let hallid =  req.body.hallid;
+  let seats=  req.body.seats;
+  hc.post("/movieSorts", { hallid,date,seats,movieid,cinemaid,price,"movies":JSON.stringify({$ref:"movies",$id:movieid}),"cinemas":JSON.stringify({$ref:"cinemas",$id:cinemaid}),"movieHalls":JSON.stringify({$ref:"movieHalls",$id:hallid})}).then(function () {
+      res.send("suc");
+  })
+})
+router.delete("/:id", function (req, res, next) {//删除
+  let id =  req.params.id;
+  hc.delete("/movieSorts/"+id).then(function () {
+      res.send('suc');
+    
+  })
+})
+
+module.exports = router;

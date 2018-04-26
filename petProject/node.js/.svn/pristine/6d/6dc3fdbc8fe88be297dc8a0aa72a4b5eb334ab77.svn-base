@@ -1,0 +1,57 @@
+// import manage from"../manage/index.js"
+// import regiester from "../regiester/index.js";
+// let login =function(){
+// }
+// export {login as default}
+
+import manage from "../manage/index.js";
+
+let login=function(){
+    $("#root").load("/mis/login/login.html",function(){
+        $.parser.parse();
+        $("#pan").panel({
+            collapsible:true,//上拉
+            closable:true,//关闭
+            iconCls:'icon-save',//图标、
+            minimizable:true,//最小
+            maximizable:true//最大
+        });
+        $("#button a:first-child").click(function(){
+            if($('#ff').form("validate")){
+                $.ajax({
+                    type:"post",
+                    url:'/users/isPhoneTrue',
+                    data:{phone:$("#phone").val(),pwd:$("#pwd").val()},
+                    success:function(data){
+                        if(data.status){
+                            $.messager.alert('提示','登录成功','',function(){
+                                // manage();
+                                location.reload();
+                                location.replace("#manage");
+                            }); 
+                        }else{
+                            $.messager.alert('提示','账号或密码错误','',function(){
+                                $('#ff').form('clear');
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        $("#button a:last-child").click(function(){
+            // $('#ff').form('clear');
+            location.reload();
+            location.replace("#regiester")
+        });
+        $.extend($.fn.validatebox.defaults.rules, {    
+            equals: {    
+                validator: function(value,param){    
+                    return param[0].test(value);    
+                },    
+                message: '格式不正确！'   
+            }    
+        });  
+    });
+}
+
+export {login as default};

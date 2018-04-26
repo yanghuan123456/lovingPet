@@ -1,0 +1,29 @@
+var express = require('express');
+var router = express.Router();
+const db = require('ykt-mongo');
+const hc =require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+/* GET users listing. */
+router.get('/', function (req, res, next) {
+  res.render('movie', { title: 'Express' });
+})
+
+router.get('/isrepit', function(req, res, next) {
+  let phone=req.query.phone;
+  console.log(phone)
+    hc.get("/users",{phone}).then(function(data){
+      if (data.length > 0) {
+        res.send({ status: false });
+      } else {
+        res.send({ status: true });
+      }
+    })
+});
+router.post('/register', function(req, res, next) {
+  let phone=req.body.phone;
+  let pwd=req.body.pwd;
+    hc.post("/users",{phone,pwd,type:"后台管理员"}).then(function(){
+      res.send('suc');
+    })
+});
+module.exports = router;

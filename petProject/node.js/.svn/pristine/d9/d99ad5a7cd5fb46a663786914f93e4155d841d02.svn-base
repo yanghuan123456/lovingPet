@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>影厅列表</title>
+</head>
+
+<body>
+     <h2>影厅列表</h2>
+    <div id="hallOuter">
+        <table id="hallTable"></table>
+    </div>
+    <div id="hallBar">
+        <!-- <input id="searchHallBtn" class="easyui-searchbox" style="width:300px" data-options="prompt:'请输入...',menu:'#hall'">
+        <div id="hall" style="width:150px">
+            <div data-options="name:'hallname'">影厅名</div>
+        </div> -->
+    </div>
+</body>
+
+</html>

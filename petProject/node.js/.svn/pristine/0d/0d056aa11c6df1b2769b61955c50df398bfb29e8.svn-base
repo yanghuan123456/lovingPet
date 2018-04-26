@@ -1,0 +1,41 @@
+var express = require('express');
+var router = express.Router();
+const multiparty = require('multiparty');
+const path = require('path');
+const hc = require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+//查、整个渲染
+router.get('/', function (req, res, next) {
+    let page = req.query.page || 1;
+    let rows = req.query.rows || 5;
+    hc.get('/movieHalls', { submitType: "findJoin", ref: "cinemas", page, rows }).then(function (data) {
+        res.send(data);
+    })
+});
+//删除
+router.delete('/:id', function (req, res, next) {
+    let id = req.params.id;
+    hc.delete("/movieHalls/" + id).then(function (data) {
+        hc.delete("/seats", { "movieHalls.$id": id }).then(function (data) {
+            res.send("suc");
+        })
+    })
+
+})
+//预备修改
+router.get('/:id', function (req, res, next) {
+    let id = req.params.id;
+    hc.get("/movieHalls/" + id, { submitType: "findJoin", ref: "cinemas" }).then(function (data) {
+        res.send(data);
+    })
+})
+//正式修改
+router.put('/:id', function (req, res, next) {
+    let id = req.params.id;
+    let name = req.body.hallnameUpdate;
+    console.log(name);
+    hc.put("/movieHalls/" + id, { name }).then(function (data) {
+        res.send('suc');
+    })
+})
+module.exports = router;

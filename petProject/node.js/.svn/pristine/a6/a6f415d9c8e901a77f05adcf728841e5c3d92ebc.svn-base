@@ -1,0 +1,101 @@
+let addimg =function(ID,moviename){
+    $("#tb1").datagrid({
+        pageSize:5,
+        pageList:[5,10,15],
+        pagePosition:"bottom",
+        pagination:true,
+        rownumbers:true,
+        columns:[[    
+            
+            {field:'addimg',title:'类型',width:100,align:"center"},    
+            {
+                field:'headimg',title:'图片',width:200,align:"center",
+                formatter:function(value,row,index){
+                   
+                    let s="";
+                    s+=`<img style="height:70px;width:70px" src="${value}">`;
+                    return s;
+                }
+            },
+            {
+                field:'caozuo',
+                title:'操作',
+                width:100,
+                align:"center",
+                formatter: function(value,row,index){
+                    let s="";
+                   
+                    s+=`<a  href="#" class="easyui-linkbutton del-btn" data-id="${row._id}">删除</a>`;
+                    return s;
+                }
+            }
+        ]] ,
+        method:"get",
+        url:"/addimg",
+        queryParams:{ID},
+        toolbar:'#toolbar1', 
+        onLoadSuccess:function(){
+            $(".update-btn").linkbutton({
+                iconCls:'icon-edit'   
+            });
+            $(".del-btn").linkbutton({
+                iconCls:'icon-remove'   
+            });
+        } 
+    })
+    $("#kh3").html(moviename+"图片管理");
+
+   // 渲染页面
+   let show=function(){
+    $("#tb1").datagrid("reload");
+}
+show();
+
+ //删除
+ $("#dataTableimg").delegate("a.del-btn","click",function(){
+    let id=$(this).attr("data-id");
+    $.ajax({
+        type:"delete",
+        url:"/addimg/"+id,
+        success:function(){
+             show();
+        }
+    })
+})
+
+    // 上传图片的
+    $("#HeadImg").filebox({
+        onChange:function(value){
+            if(!value){
+               return;
+            }
+            $.ajaxFileUpload({
+                url:"/addimg/Upload",
+                fileElementId:$("input[name=HeadImg]").attr("id"),
+                dataType:"string",
+                success:function(path){ 
+                    $("input[name=HeadImg]").attr("id","");
+                    $.ajax({
+                        type:"post",
+                        url:"/addimg",
+                        data:{
+                            headimg:path,
+                            moviesId:ID,
+                            addimg:$("#addimg option:selected").val(),
+                        },
+                        success:function(){
+                            show();
+                            $("#HeadImg").filebox("clear");
+                        }
+                    })
+                }
+            }); 
+            
+        },
+        onClickButton:function(){
+            $("#HeadImg").filebox("clear");
+        }
+    });
+
+ }
+ export {addimg as default}

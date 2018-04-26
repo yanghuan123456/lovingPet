@@ -1,0 +1,45 @@
+var express = require('express');
+var router = express.Router();
+const db = require('ykt-mongo');
+const hc =require('ykt-http-client');
+hc.url("192.168.43.202:3001");
+/* GET users listing. */
+//查询
+router.get('/', function (req, res, next) {
+  let page=req.query.page||1;
+  let rows=req.query.rows||5;
+  let value=req.query.value || null;
+  let name=req.query.name||null;
+  console.log(value,name);
+  if(value == null){       
+          hc.get("/users",{page,rows}).then(function(data){
+              res.send(data);
+          })
+  }else{
+          hc.get("/users",{page,rows,[name]:value}).then(function(data){
+              res.send(data);
+          })
+  }
+})
+//删除
+router.delete('/:id', function(req, res, next){
+    hc.delete("/users/"+req.params.id).then(function(data){
+        res.send("suc");
+    });
+});
+// 修改 put
+router.get('/:id', function(req, res, next){
+    hc.get("/users/"+req.params.id).then(function(data){
+        res.send(data);
+    });
+});
+router.put('/:id', function(req, res, next){
+    let phone=req.body.phone;
+    let pwd=req.body.pwd;
+    let id=req.params.id;
+    hc.put("/users/"+id,{phone,pwd}).then(function(){
+        res.send("suc");
+    });
+});
+
+module.exports = router;

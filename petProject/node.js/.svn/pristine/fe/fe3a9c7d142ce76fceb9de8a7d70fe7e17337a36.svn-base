@@ -1,0 +1,23 @@
+import login from "./login/index.js";
+import regiester from "./regiester/index.js";
+import manage from"./manage/index.js"
+// regiester();
+const router ={
+    "/":manage,
+    "/login":login,
+    "/regiester":regiester,
+    "/manage":manage
+}
+let path =location.hash.replace(/[#/]/,"/")||"/";
+router[path]?router[path]():router["/"];
+// manage();
+// location.reload()
+// console.log(path)
+// for(let key in router){
+//     if(key==path){
+//         router[path]();
+//     }
+// }
+// let hash=location.hash
+// manage();
+// login();

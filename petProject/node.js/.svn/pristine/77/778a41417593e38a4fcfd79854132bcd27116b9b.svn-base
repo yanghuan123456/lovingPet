@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>影院更新</title>
+</head>
+<body>
+    <form id="updateRegForm" method="get" style="width:600px;margin:40px 40px;">
+        <input type="hidden" id="updateId">
+        <div style="margin-bottom:20px">
+            <input id="updateCinemaName" class="easyui-textbox" name="updateCinemaName" style="width:600px;" data-options="label:'影院名称'">
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="updateAddress" class="easyui-textbox" name="updateAddress" style="width:600px;" data-options="label:'影院地址'">
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="updatePhone" class="easyui-textbox" name="updatePhone" style="width:600px;" data-options="label:'影院电话'">
+        </div>
+        <div style="margin-bottom:20px;margin-left:84px;" >
+            <a href="javascript:void(0)" class="easyui-linkbutton"  style="width:80px" id="updateSave">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton"  style="width:80px" id="updateCancel">取消</a>
+        </div>
+    </form>
+</body>
+</html>
