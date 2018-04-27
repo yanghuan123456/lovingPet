@@ -10,9 +10,13 @@ import Pethost from "../components/pethostManage/store"
 import Pet from "../components/petManage/store"
 import Service from "../components/serviceManage/store"
 import User from "../components/userManage/store"
+import Login from "../components/app/login/store"
+import Reg from "../components/app/reg/store"
 
 export default new Vuex.Store({
     modules: {
+        Login,
+        Reg,
         ShopStore,
         Item,
         Order,

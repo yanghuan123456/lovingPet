@@ -13,8 +13,14 @@ hc.url("127.0.0.1:3001");
 router.get("/", function (req, res, next) {//加载
   let page = req.query.page||1
   let rows = req.query.rows || 5
-  // console.log(page,rows)
-  hc.get("/stores",{page,rows}).then(function (data) {
+  
+  let name = req.query.type;
+  let value = req.query.value;
+  let obj={};
+  if(name){
+      obj[name]=value;
+  }
+  hc.get("/stores", {page , rows , ...obj}).then(function (data) {
       res.send(data);
   });
 });
@@ -31,6 +37,7 @@ router.get("/:id",function(req, res, next){
   hc.get("/stores/"+id).then(function(data){
       res.send(data);//返回对象
   })
+  
 });
 router.put("/:id",function(req, res, next){
   // console.log(req.body)

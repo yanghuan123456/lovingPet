@@ -13,18 +13,18 @@ export default {
         total: 0,
         upDate: {
             shopName: '',
-                    shopLicenceNum: '',
-                    shopLicenceImg: '',
-                    shopAdd: '',
-                    shopCorporate: '',
-                    shopTel:'',
-                    shopImg: '',
-                    shopFeature: '',
-                    shopEmployee:[{
-                        empName: '',
-                        empLevel: '',
-                        empPhone:''
-                    }],
+            shopLicenceNum: '',
+            shopLicenceImg: '',
+            shopAdd: '',
+            shopCorporate: '',
+            shopTel:'',
+            shopImg: '',
+            shopFeature: '',
+            shopEmployee:[{
+                empName: '',
+                empLevel: '',
+                empPhone:''
+            }],
         },
         rows: [{
             shopName: '抚琴东南店',
@@ -68,7 +68,8 @@ export default {
                     arr[key]=data[key]
                 }  
             }
-        } 
+        },
+        
     },
     actions: {//异步
         // async postStoreData(context,obj) { //context是store的实列，通过它可获得store的方法和属性
@@ -110,6 +111,15 @@ export default {
         async postUpdate(context, obj) {
              await axios.put("/shopStore/" + obj._id, obj)
             
+        },
+        // 查询
+        async search(context,{type,value}){
+            const {
+                curpage,
+                eachpage
+            } = context.state
+            const { data } = await axios.get(`/shopStore/?type=${type}&value=${value}`)
+            context.commit("getPAge", data)
         }
     },
     getters:{

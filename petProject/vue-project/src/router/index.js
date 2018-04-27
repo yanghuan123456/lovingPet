@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from '../components/app/login.vue'
-import Reg from '../components/app/reg.vue'
+import Login from '../components/app/login/login.vue'
+import Reg from '../components/app/reg/reg.vue'
 import Info from '../components/app/info.vue'
 import UeserManage from "../components/userManage/userManage.vue"
 import ItemManage from "../components/itemManage/itemManage.vue"

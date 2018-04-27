@@ -1,10 +1,10 @@
 <template>
 <el-container style="height: 620px; border: 1px solid #eee">
-  <el-aside width="200px" style="background-color: #fbdb52">
+  <el-aside width="200px" style="background-color: #f6c593">
       <el-menu
             default-active="1"
             router
-            style="background-color:#fbdb52;marginTop:100px;"
+            style="background-color:#f6c593;marginTop:100px;"
             class="el-menu-vertical-demo">  
             <el-menu-item index="/info/ueserManage" >
                 <span slot="title" style="fontSize:18px">用户管理</span>
@@ -44,7 +44,7 @@
         <span>一组</span>
     </el-header>
     
-    <el-main style="background-color:#fbdb52;" class="note" :style ="note">
+    <el-main style="background-color:#f6c593;" class="note" :style ="note">
         <router-view></router-view>
     </el-main>
   </el-container>
@@ -56,7 +56,7 @@
         data() {
             return {
                 note: {
-                    backgroundImage: "url(" + require("../../assets/bg1.png") + ")",
+                    backgroundImage: "url(" + require("../../assets/bg.jpg") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "auto",
                 }
@@ -67,7 +67,7 @@
     
 <style>
     .el-header {
-        background-color: #fbdb52;
+        background-color: #f6c593;
         color: #fff;
         line-height: 100px;
     }
