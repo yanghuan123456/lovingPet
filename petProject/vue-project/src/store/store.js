@@ -12,6 +12,7 @@ import Service from "../components/serviceManage/store"
 import User from "../components/userManage/store"
 import Login from "../components/app/login/store"
 import Reg from "../components/app/reg/store"
+import Auditing from "../components/app/auditing/store"
 
 export default new Vuex.Store({
     modules: {
@@ -23,6 +24,7 @@ export default new Vuex.Store({
         Pethost,
         Pet,
         Service,
-        User
+        User,
+        Auditing
     }
 })
