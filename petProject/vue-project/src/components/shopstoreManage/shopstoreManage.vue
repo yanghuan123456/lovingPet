@@ -1,5 +1,4 @@
 <template>
-
     <div >
         <div v-if="isFlag">
             <div style="display:flex;flexDirection:row;width:450px;" >
@@ -245,8 +244,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
-import { MessageBox } from "element-ui";
+import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
     export default{
         name:"shopstoreManage", 
         data() {
@@ -399,6 +397,7 @@ import { MessageBox } from "element-ui";
                 this.getStoreData()
             }
         }
+
 
     }
 </script>

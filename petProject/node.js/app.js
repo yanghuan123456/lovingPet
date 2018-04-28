@@ -14,6 +14,7 @@ var pethosts = require('./routes/pethosts');
 var pets = require('./routes/pets');
 var services = require('./routes/services');
 var users = require('./routes/users');
+var userslist = require('./routes/userslist');
 var index = require('./routes/index');
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/pethosts', pethosts);
 app.use('/pets', pets);
 app.use('/services', services);
 app.use('/users', users);
+app.use('/userslist', userslist);
 
 
 // catch 404 and forward to error handler
