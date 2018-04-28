@@ -1,9 +1,5 @@
 <template>
-<<<<<<< Updated upstream
-   <div>
-        <h1>PethostManage</h1>
-    </div>
-=======
+
     <div >
         <div v-if="isFlag">
             <div style="display:flex;flexDirection:row;width:450px;" >
@@ -245,14 +241,13 @@
             </div>
         </el-dialog>
   </div>
->>>>>>> Stashed changes
+
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
+import { MessageBox } from "element-ui";
     export default{
-<<<<<<< Updated upstream
-        name:"pethostManage",
-=======
         name:"shopstoreManage", 
         data() {
             return {
@@ -404,7 +399,7 @@
                 this.getStoreData()
             }
         }
->>>>>>> Stashed changes
+
     }
 </script>
 
