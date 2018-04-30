@@ -1,10 +1,22 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import axios from "axios"
 
 Vue.use(Vuex)
 
 export default {
-    namespaced: true,
-    
+    namespaced:true,
+    state:{
+        
+    },
+    mutations:{//同步
+        
+    },
+    actions:{//异步
+      
+    },
+    getters:{
+        
+    }
 }
+
+

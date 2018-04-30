@@ -1,6 +1,6 @@
 <template>
 <div>
-<div v-if="isxiu">
+<div v-if="isxiu"> 
    <el-table
     :data="orders"
     style="width: 100%">
@@ -90,7 +90,7 @@
       </template>
     </el-table-column>
   </el-table>
-       <div class="block">
+       <div class="block" style="display: flex;justify-content: center;">
             <el-pagination @size-change="seteachpage" @current-change="setcurpage" :current-page="curpage" :page-sizes="[1,3,5,7]"
                 :page-size="eachpage" layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>

@@ -68,7 +68,6 @@ export default {
     actions: {//异步
         async getdataAsync(context) {
             const { curpage, eachpage ,storeManagerId} = context.state
-            console.log(storeManagerId)
             const { data } = await axios(`/order/?page=${curpage}&rows=${eachpage}&storeManagerId=${storeManagerId}`)
             context.commit("setdata", data)
         },
