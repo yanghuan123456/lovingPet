@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
   let rows=req.query.rows||5;
   let value=req.query.value;
   let id=req.query.id;
+  console.log(id)
   if(value!=null){
     hc.get("/services/",{"stores":value,page,rows,"users.$id":id}).then(function (data) {
         res.send(data);

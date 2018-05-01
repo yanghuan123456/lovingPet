@@ -34,26 +34,26 @@ export default {
             //抓取数据
             const {curpage,eachpage}=context.state
             let id=sessionStorage.getItem("users")
-            const {data} = await axios.get(`/services/?page=${curpage}&rows=${eachpage}&id=${id}`)
+            const {data} = await axios.get(`/service/?page=${curpage}&rows=${eachpage}&id=${id}`)
             context.commit("setdata",data) 
         },
         async huntdataAsync(context,value){
             let id=sessionStorage.getItem("users")
-            const{data}=await axios.get(`/services/?value=${value}&id=${id}`,)
+            const{data}=await axios.get(`/service/?value=${value}&id=${id}`,)
             context.commit("setdata",data)
         },
         // 上传数据
         async postdataAsync(context,form1){
             let id=sessionStorage.getItem("users")
-            await axios.post("/services",{...form1,id})
+            await axios.post("/service",{...form1,id})
         },
         // 删除数据
         async deletedataAsync(context,{text}){
-            await axios.delete("/services/"+text._id)
+            await axios.delete("/service/"+text._id)
         },
         // 修改数据
         async putdataAsync(context,text){
-            await axios.put("/services/"+text._id,text)
+            await axios.put("/service/"+text._id,text)
         },
     },
     // 计算属性
