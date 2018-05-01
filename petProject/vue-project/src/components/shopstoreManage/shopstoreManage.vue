@@ -4,7 +4,7 @@
             <div style="display:flex;flexDirection:row;width:450px;" >
                 <el-button type="warning" @click="handleIncre()">增加</el-button>
                 <el-input placeholder="请输入内容" v-model="textInput" class="input-with-select">
-                    <el-select v-model="select" slot="prepend" placeholder="请选择">
+                    <el-select v-model="select" slot="prepend" placeholder="分类查询" >
                         <el-option label="门店" value="shopName"></el-option>
                         <el-option label="地址" value="shopAdd"></el-option>
                         <el-option label="特色" value="shopFeature"></el-option>
@@ -32,9 +32,9 @@
                 </el-table-column>
                 <el-table-column
                 label="执照"
-                width="60">
+                width="80">
                     <template slot-scope="scope">
-                        <img :src="scope.row.shopLicenceImg" alt="no" />
+                        <img :src="scope.row.shopLicenceImg" alt="执照" style="width:40px;"/>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -46,7 +46,7 @@
                 </el-table-column>
                 <el-table-column
                 label="法人"
-                width="100">
+                width="80">
                     <template slot-scope="scope">
                         <span >{{ scope.row.shopCorporate }}</span>
                     </template>
@@ -60,14 +60,14 @@
                 </el-table-column>
                 <el-table-column
                 label="头图"
-                width="100" >
+                width="80" >
                     <template slot-scope="scope">
-                        <img :src="scope.row.shopImg" alt="no" />
+                        <img :src="scope.row.shopImg" alt="头图" style="width:40px;" />
                     </template>
                 </el-table-column>
                 <el-table-column
                 label="特色"
-                width="100">
+                width="80">
                 <template slot-scope="scope">
                     <span >{{ scope.row.shopFeature }}</span>
                 </template>
@@ -163,7 +163,7 @@
                         <el-input v-model="form.shopFeature"></el-input>
                     </el-form-item>
                     <div style="display:flex;flexDirection:row">
-                        <el-form-item label="添加店员" style="width:400px">
+                        <el-form-item label="店员" style="width:400px">
                             <el-input v-model="empName" placeholder="姓名："></el-input>
                             <el-input v-model="empLevel" placeholder="职位："></el-input>
                             <el-input v-model="empPhone" placeholder="电话："></el-input>
@@ -196,19 +196,19 @@
         <el-dialog title="修改信息" :visible.sync="dialogFormVisible"
             @close="handleClose"
             @open="handleOpen"
-        >
+            >
             <el-form :model="upDate">
                 <el-form-item label="门店" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopName" auto-complete="off"></el-input>
+                    <el-input v-model="upDate.shopName" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="执照号" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopLicenceNum" auto-complete="off"></el-input>
+                <el-form-item label="执照号" :label-width="formLabelWidth" >
+                    <el-input v-model="upDate.shopLicenceNum" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="地址" :label-width="formLabelWidth">
                     <el-input v-model="upDate.shopAdd" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="法人" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopCorporate" auto-complete="off"></el-input>
+                <el-form-item label="法人" :label-width="formLabelWidth" >
+                    <el-input v-model="upDate.shopCorporate" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="电话" :label-width="formLabelWidth">
                     <el-input v-model="upDate.shopTel" auto-complete="off"></el-input>
@@ -216,12 +216,31 @@
                 <el-form-item label="特色" :label-width="formLabelWidth">
                     <el-input v-model="upDate.shopFeature" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="执照" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopLicenceImg" auto-complete="off"></el-input>
+                <el-form-item  :label-width="formLabelWidth" >
+                    <el-form-item label="头图" style="width:200px">
+                        <el-upload
+                            class="avatar-uploader"
+                            action="/shopStore/upload"
+                            :show-file-list="false"
+                            :on-success="handleUpdateSuccess2"
+                            :before-upload="beforeAvatarUpload">
+                            <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item label="执照" style="width:200px">
+                        <el-upload
+                            class="avatar-uploader"
+                            action="/shopStore/upload"
+                            :show-file-list="false"
+                            :on-success="handleUpdateSuccess3"
+                            :before-upload="beforeAvatarUpload">
+                            <img v-if="imageUrl3" :src="imageUrl3" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                    </el-form-item>
                 </el-form-item>
-                <el-form-item label="头图" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopImg" auto-complete="off"></el-input>
-                </el-form-item>
+               
                 <el-form-item label="店员" :label-width="formLabelWidth" v-for="(item,index) in upDate.shopEmployee" :key="index">
                     <el-form-item label="姓名" :label-width="formLabelWidth">
                         <el-input v-model="item.empName" auto-complete="off"></el-input>
@@ -240,6 +259,7 @@
             </div>
         </el-dialog>
   </div>
+
 
 </template>
 
@@ -268,6 +288,8 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                 empPhone:'',
                 imageUrl: '',
                 imageUrl1: '',
+                imageUrl2: '',
+                imageUrl3: '',
                 formLabelWidth: '120px',
                 dialogVisible: false,
                 // 修改
@@ -280,21 +302,37 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
         },
        
         methods: {
-            ...mapMutations('ShopStore',['handleIncre','setCurPage','setEachPage']),
+            ...mapMutations('ShopStore',['getImgUrl','handleIncre','setCurPage','setEachPage']),
             ...mapActions('ShopStore',['search','postStoreData','getStoreData','deleteData','getUpdate','postUpdate']),
             // 修改
             handleEdit(index, row) {
-                this.getUpdate(row._id)
+                this.getUpdate(row._id).then(()=>{
+                    this.imageUrl2=this.upDate.shopImg
+                    this.imageUrl3=this.upDate.shopLicenceImg
+                })
             },
             handleClose() {
                 // console.log("close")
+                this.imageUrl=""
+                this.imageUrl1=""
             },
             handleOpen(){
+                // console.log(this.imageUrl)
                 // console.log("open")
             },
             handleUpdate(){
                 this.postUpdate(this.upDate)
+                this.imageUrl=""
+                this.imageUrl1=""
                 this.getStoreData()
+            },
+            handleUpdateSuccess2(res, file) {
+                this.upDate.shopImg=res
+                this.imageUrl2 = URL.createObjectURL(file.raw);
+            },
+            handleUpdateSuccess3(res, file) {
+                this.upDate.shopImg=res
+                this.imageUrl3 = URL.createObjectURL(file.raw);
             },
             // 删除
             handleDelete(index, row) {
@@ -318,8 +356,11 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                     shopFeature: '',
                     shopEmployee:[],    
                 }
+                this.imageUrl=""
+                this.imageUrl1=""
                 this.getStoreData()
             },
+            // 取消
             onCancel(){
                 this.form= {
                     shopName: '',
@@ -341,9 +382,7 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                     this.empName=""
                     this.empLevel=""
                     this.empPhone=""
-                }
-                
-                
+                } 
             },
 
             // 头像
@@ -377,21 +416,23 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                 // console.log(`当前页: ${val}`);
                 this.setCurPage(val)
             },
+            // 查询
             handleSearch(){
+                // console.log("in")
                 this.search({type:this.select,value:this.textInput})
-            }
+            },
             
         },
         mounted(){
                 this.getStoreData()
-                // console.log(this.rows)
         },
         watch:{
+            
             eachpage(){
                 this.getStoreData()
             },
             upDate(){
-                // this.getStoreData()
+                this.getStoreData()
             },
             form(){
                 this.getStoreData()
@@ -401,5 +442,33 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
 </script>
 
 <style>
-
+    .el-select .el-input {
+        width: 140px;
+    },
+    .input-with-select .el-input-group__prepend {
+        background-color: #fff;
+    }
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+    .avatar {
+        width: 100px;
+        height: 100px;
+        display: block;
+    }
 </style>
