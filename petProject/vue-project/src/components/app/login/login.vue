@@ -182,7 +182,7 @@ export default {
   },
   beforeMount(){
       let obj,obj1
-      if(localStorage.getItem("userAccount")){
+      if(localStorage.getItem("userAccount")&&!this.$route.params.username){
             obj=JSON.parse(localStorage.getItem("userAccount"))||{}
             if(obj.username){
                 this.ban=false

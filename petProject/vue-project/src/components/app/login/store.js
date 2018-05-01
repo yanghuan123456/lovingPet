@@ -26,7 +26,7 @@ export default {
     },
     actions: {
         async getUser(context, obj) {
-            console.log(obj)
+            // console.log(obj)
             const { data } = await axios.post(`/users`, obj)
             context.commit('setData',data)
         }

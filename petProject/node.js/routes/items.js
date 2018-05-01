@@ -69,7 +69,7 @@ router.post("/uploader", function (req, res, next) {
       const path=files.file[0].path.replace("public", "").replace("/\\/g", "/");
       
       hc.delete("/itemimages/"+imgid).then(function(data){
-        console.log("idididi6666666666666666666666dididididid",imgid);
+        // console.log("idididi6666666666666666666666dididididid",imgid);
         res.send("suc")
         
       })

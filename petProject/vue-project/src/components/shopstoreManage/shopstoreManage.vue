@@ -199,16 +199,16 @@
             >
             <el-form :model="upDate">
                 <el-form-item label="门店" :label-width="formLabelWidth">
-                    <el-input v-model="upDate.shopName" auto-complete="off" :disabled="true"></el-input>
+                    <el-input v-model="upDate.shopName" auto-complete="off" :disabled="false"></el-input>
                 </el-form-item>
                 <el-form-item label="执照号" :label-width="formLabelWidth" >
-                    <el-input v-model="upDate.shopLicenceNum" auto-complete="off" :disabled="true"></el-input>
+                    <el-input v-model="upDate.shopLicenceNum" auto-complete="off" :disabled="false"></el-input>
                 </el-form-item>
                 <el-form-item label="地址" :label-width="formLabelWidth">
                     <el-input v-model="upDate.shopAdd" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="法人" :label-width="formLabelWidth" >
-                    <el-input v-model="upDate.shopCorporate" auto-complete="off" :disabled="true"></el-input>
+                    <el-input v-model="upDate.shopCorporate" auto-complete="off" :disabled="false"></el-input>
                 </el-form-item>
                 <el-form-item label="电话" :label-width="formLabelWidth">
                     <el-input v-model="upDate.shopTel" auto-complete="off"></el-input>
@@ -331,7 +331,7 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                 this.imageUrl2 = URL.createObjectURL(file.raw);
             },
             handleUpdateSuccess3(res, file) {
-                this.upDate.shopImg=res
+                this.upDate.shopLicenceImg=res
                 this.imageUrl3 = URL.createObjectURL(file.raw);
             },
             // 删除
