@@ -427,12 +427,17 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                 this.getStoreData()
         },
         watch:{
-            
             eachpage(){
+                this.getStoreData()
+            },
+            curpage(){
                 this.getStoreData()
             },
             upDate(){
                 this.getStoreData()
+            },
+            total() {
+                 this.getStoreData()
             },
             form(){
                 this.getStoreData()

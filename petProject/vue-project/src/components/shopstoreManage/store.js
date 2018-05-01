@@ -69,7 +69,8 @@ export default {
                 let relatedId = getObj.id ||""
                 const {
                     curpage,
-                    eachpage
+                    eachpage,
+                    maxpage
                 } = context.state
                 // get只能通过拼接获取数据page=${curpage}&rows=${eachpage}
                 let  {data}  = await axios.get(`/shopStore/?page=${curpage}&rows=${eachpage}&relatedId=${relatedId }`)
@@ -96,7 +97,7 @@ export default {
         // 修改
         async getUpdate(context, id) {
             const { data } = await axios.get(`/shopStore/` + id)
-            console.log(data)
+            // console.log(data)
             context.commit("setUpdata",data)
         },
         async postUpdate(context, obj) {

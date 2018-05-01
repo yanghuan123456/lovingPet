@@ -105,8 +105,8 @@ export default {
       radio: "门店管理员",
       checked: false,
       checked1: false,
-      ban:true,
-      ban1:true,
+      ban:false,
+      ban1:false,
     };
   },
   computed: {
@@ -180,7 +180,7 @@ export default {
       this.$router.push("/reg");
     }
   },
-  beforeMount(){
+  beforeMounted(){
       let obj,obj1
       if(localStorage.getItem("userAccount")&&!this.$route.params.username){
             obj=JSON.parse(localStorage.getItem("userAccount"))||{}
