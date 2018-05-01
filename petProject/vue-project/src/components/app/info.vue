@@ -121,7 +121,7 @@
             },
             onlinehandleCommand(command) {
                 if(command==="signOut"){
-                    sessionStorage.setItem("user",JSON.stringify({}))
+                    sessionStorage.setItem("users",JSON.stringify({}))
                     this.selectStatus=!this.selectStatus
                     this.$router.push(`/`)
                     

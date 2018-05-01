@@ -259,10 +259,12 @@
             </div>
         </el-dialog>
   </div>
+
+
 </template>
 
 <script>
-    import {mapState,mapMutations,mapActions} from 'vuex'
+import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
     export default{
         name:"shopstoreManage", 
         data() {

@@ -15,7 +15,7 @@
                         <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="姓名:" prop="userName">
-                        <el-input v-model.number="ruleForm2.userName"></el-input>
+                        <el-input v-model.string="ruleForm2.userName"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号:" prop="userPhone">
                         <el-input v-model.number="ruleForm2.userPhone"></el-input>
@@ -23,13 +23,10 @@
                     <el-form-item
                         prop="userMail"
                         label="邮箱:"
-                        :rules="[
-                        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-                        { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-                        ]"
                     >
-                        <el-input v-model.number="ruleForm2.userMail"></el-input>
+                        <el-input v-model.string="ruleForm2.userMail"></el-input>
                     </el-form-item>
+                    
                     <el-form-item>
                         <el-button type="danger" round @click="submitForm('ruleForm2')">注册</el-button>
                         <el-button type="danger" round @click="resetForm('ruleForm2')">重置</el-button>
@@ -51,23 +48,30 @@
                     return callback(new Error('账号不能为空'));
                 }
                 setTimeout(() => {
-                    if (value-0 < 6) {
-                        callback(new Error('必须不少6位'));
+                    if (value-0 < 2||value.length<2) {
+                        callback(new Error('必须不少2位'));
                     } else {
-                        callback();
+                        this.queryDataType({userAcount:value}).then(()=>{
+                            if(this.userAcountStatus==1){
+                                callback(new Error('已注册'));
+                            }else{
+                                callback();
+                            }
+                        })
+                        
                     }
                 }, 1000);
-            };
+            };//账号
             var validatePass = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请输入密码'));
                 } else {
-                if (this.ruleForm2.checkPass !== '') {
-                    this.$refs.ruleForm2.validateField('checkPass');
+                    if (this.ruleForm2.checkPass !== '') {
+                        this.$refs.ruleForm2.validateField('checkPass');
+                    }
+                    callback();
                 }
-                callback();
-                }
-            };
+            };//密码
             var validatePass2 = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请再次输入密码'));
@@ -76,7 +80,7 @@
                 } else {
                     callback();
                 }
-            };
+            };//确认密码
 
             var validatename =(rule, value, callback) =>{
                 if (value === '') {
@@ -86,19 +90,23 @@
                 }
             };//姓名
             var validateuserMail =(rule, value, callback) =>{
-                let re=/^\w+@\w+(\.\w)+$/;
-                console.log(value)
+                let rel=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                 if (!value) {
-                return callback(new Error('邮箱不能为空'));
-                }else if(!re.test(value)){
-                callback(new Error('邮箱格式不正确'));
+                    return callback(new Error('邮箱不能为空'));
+                }else if(!rel.test(value)){
+                    callback(new Error('邮箱格式不正确'));
                 }
                 else {
-                callback();
+                    this.queryDataType({userMail:value}).then(()=>{
+                        if(this.userAcountStatus==1){
+                            callback(new Error('已使用'));
+                        }else{
+                            callback();
+                        }
+                    })
                 }
             };//邮箱
             var validatemobil = (rule, value, callback) => {
-                console.log(value)
                 if (!value) {
                     callback(new Error('请输入电话号码'));
                 } else if (!Number.isInteger(value)) {
@@ -106,7 +114,13 @@
                 } else if (value.toString().length != 11) {
                     callback(new Error('电话号码必须是11位'));
                 } else {
-                    callback();
+                    this.queryDataType({userPhone:value}).then(()=>{
+                        if(this.userAcountStatus==1){
+                            callback(new Error('已使用'));
+                        }else{
+                            callback();
+                        }
+                    })
                 }
             };//手机号
             
@@ -119,6 +133,8 @@
                     userName:'',
                     userPhone:''
                 },
+                
+
                 rules2: {
                     userPwd: [{ 
                         validator: validatePass, 
@@ -144,12 +160,16 @@
                 }
             };
         },
+        computed:{
+            ...mapState('Reg',['userAcountStatus'])
+        },
         methods: {
-            ...mapActions('Reg',['getUser']),
+            ...mapActions('Reg',['getUser','queryDataType']),
             // 注册
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        delete this.ruleForm2.checkPass
                         this.getUser(this.ruleForm2)
                         alert('注册成功!');
                         this.$router.push(`/login/${this.ruleForm2.userAcount||" "}`)
