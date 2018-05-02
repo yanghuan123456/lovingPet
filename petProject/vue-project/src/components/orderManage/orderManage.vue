@@ -75,7 +75,7 @@
       label="总价"
       width="100">
       <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.quantity*scope.row.goods.money }}</span>
+        <span style="margin-left: 10px">{{ scope.row.quantity*scope.row.goods.money }}元</span>
       </template>
     </el-table-column>
     <el-table-column label="操作">
