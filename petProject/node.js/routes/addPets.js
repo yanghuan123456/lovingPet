@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
   let ID = req.body.id
   let item = req.body.item;
   const { photo, variety, name, color, gender, money, age } = item
-  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "storeManagers", $id: ID }) }).then(function () {//cinemas集合
+  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "users", $id: ID }) }).then(function () {//cinemas集合
       res.send("suc");
   });
 });
