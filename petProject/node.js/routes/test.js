@@ -44,7 +44,7 @@ router.post('/upload', function (req, res, next) {
     } else {
       // 图片保存路径
       let str = files.file[0].path.replace('public', '').replace(/\\/g, '/')
-      let path = '127.0.0.1:3000' + str
+      let path = str
       console.log(path,str)
       // console.log(files.file[0].path)
       // res.send(files.file[0].path);

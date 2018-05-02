@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Auditing from '../components/app/auditing/auditing.vue'
 import Login from '../components/app/login/login.vue'
 import Reg from '../components/app/reg/reg.vue'
 import Info from '../components/app/info.vue'
@@ -29,7 +30,12 @@ export default new Router({
       path: '/reg',
       name: 'reg',
       component: Reg
-    },{
+    },
+    {
+      path: '/auditing',
+      name: 'auditing',
+      component: Auditing
+    }, {
       path: '/info',
       name: 'info',
       component: Info,

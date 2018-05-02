@@ -1,3 +1,4 @@
+
 <template>
 <div class="jindu" >
 <el-row>
@@ -32,7 +33,7 @@ export default{
   
   methods: {
     gin(){
-          this.$router.push('/login')
+          this.$router.push('/')
     }
   }
 }
