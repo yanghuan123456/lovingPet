@@ -11,10 +11,11 @@ var shopStore = require('./routes/shopStore');
 var items = require('./routes/items');
 var order = require('./routes/order');
 var pethosts = require('./routes/pethosts');
-var pets = require('./routes/pets');
+var addPets = require('./routes/addPets');
 var services = require('./routes/services');
 var users = require('./routes/users');
 var index = require('./routes/index');
+var addPetimg =require('./routes/addPetimg')
 var app = express();
 
 
@@ -41,10 +42,10 @@ app.use('/test', test);
 app.use('/items', items);
 app.use('/order', order);
 app.use('/pethosts', pethosts);
-app.use('/pets', pets);
+app.use('/addPets', addPets);
 app.use('/services', services);
 app.use('/users', users);
-
+app.use('/addPetimg', addPetimg);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
