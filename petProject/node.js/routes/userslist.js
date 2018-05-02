@@ -37,7 +37,9 @@ router.get('/storeManagers', function (req, res, next) {
         hc.get("/users", { page, rows }).then(function (data) {
             res.send(data);
         })
+
     } else if (value === '申请中') {
+
         hc.get("/users", { page, rows, userStatus: '0' }).then(function (data) {
             res.send(data);
         })
