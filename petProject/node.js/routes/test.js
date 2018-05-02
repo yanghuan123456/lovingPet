@@ -5,9 +5,12 @@ const db = require("ykt-mongo");
 const hc = require("ykt-http-client");
 const multiparty = require("multiparty");
 const path = require;
+
+
 // hc.url("127.0.0.1:3001");
 hc.url("192.168.43.143:3001");
 // hc.url("localhost:3001");
+
 
 router.get("/", function (req, res, next) {
   console.log("GET 请求")

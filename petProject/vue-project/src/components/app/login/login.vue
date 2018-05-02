@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+<template>
+   <div>
+        <h1>ItemManage</h1>
+    </div>
+</template>
+
+<script>
+    export default{
+        name:"itemManage",
+    }
+</script>
+
+<style>
+
+</style>
+=======
 <template>
     <div class="dialog" >
         <div class="loginPage" >
@@ -205,3 +222,4 @@ export default {
   }
 };
 </script>
+>>>>>>> bebf6fb41d797e2f5c95716a9909c748b6731e05

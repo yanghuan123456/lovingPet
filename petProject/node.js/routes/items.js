@@ -5,6 +5,7 @@ const path = require('path');
 const hc = require("ykt-http-client");
 // hc.url("127.0.0.1:3001");
 hc.url("192.168.43.143:3001");
+
 /* GET home page. */
 
 
@@ -21,7 +22,6 @@ router.get('/', function (req, res, next) {
   }
   if (type == "img") {
     hc.get("/itemimages", { "moviesID.$id": id, page, rows, submitType: "findJoin", ref: "items" }).then(function (data) {
-      // console.log("datadatdatd111111111111111111111111111atdtadta1", data);
       res.send(data);
     })
   }else{

@@ -1,3 +1,4 @@
+
 <template>
 <el-row :gutter="24">
         <el-col :span="8"><div class="grid-content bg-purple">..</div></el-col>
@@ -15,7 +16,7 @@
                         <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="姓名:" prop="userName">
-                        <el-input v-model.string="ruleForm2.userName"></el-input>
+                        <el-input v-model="ruleForm2.userName"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号:" prop="userPhone">
                         <el-input v-model.number="ruleForm2.userPhone"></el-input>
@@ -24,7 +25,7 @@
                         prop="userMail"
                         label="邮箱:"
                     >
-                        <el-input v-model.string="ruleForm2.userMail"></el-input>
+                        <el-input v-model="ruleForm2.userMail"></el-input>
                     </el-form-item>
                     
                     <el-form-item>
@@ -197,4 +198,5 @@
         padding: 0;
         position: relative;
     }
+
 </style>

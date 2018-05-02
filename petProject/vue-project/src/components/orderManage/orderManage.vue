@@ -1,6 +1,6 @@
 <template>
 <div>
-<div v-if="isxiu">
+<div v-if="isxiu"> 
    <el-table
     :data="orders"
     style="width: 100%">
@@ -90,7 +90,7 @@
       </template>
     </el-table-column>
   </el-table>
-       <div class="block">
+       <div class="block" style="display: flex;justify-content: center;">
             <el-pagination @size-change="seteachpage" @current-change="setcurpage" :current-page="curpage" :page-sizes="[1,3,5,7]"
                 :page-size="eachpage" layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
@@ -142,9 +142,9 @@ export default {
 
   created() {
     //   localStorage.setItem("users","5ae0330d380ae55643ea27a9")
-      let users=sessionStorage.getItem("users")
-
-      this.getuserId(users);
+      let users=JSON.parse(sessionStorage.getItem("users"))
+      let id = users.id
+      this.getuserId(id);
     this.getdataAsync();
   },
   methods: {

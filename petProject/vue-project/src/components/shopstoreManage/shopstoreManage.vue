@@ -449,7 +449,7 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
 <style>
     .el-select .el-input {
         width: 140px;
-    },
+    }
     .input-with-select .el-input-group__prepend {
         background-color: #fff;
     }
