@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
       res.send(data);
     })
   }else{
-    hc.get("/items", { page, rows, ...obj,"users.$id":usersid }).then(function (data) {
+    hc.get("/items", { page, rows, ...obj,submitType: "findJoin", ref: "users","users.$id":usersid }).then(function (data) {
       res.send(data);
     })
   }
