@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const db = require('ykt-mongo');
 const hc = require('ykt-http-client');
-hc.url("127.0.0.1:3001");
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
 /* GET users listing. */
 //顾客查询
 router.get('/users', function (req, res, next) {
