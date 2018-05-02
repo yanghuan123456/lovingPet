@@ -33,18 +33,18 @@ export default {
         async getdataAsync(context){
             //抓取数据
             const {curpage,eachpage}=context.state
-            let id=sessionStorage.getItem("users")
+            let id=JSON.parse( sessionStorage.getItem("users")).id
             const {data} = await axios.get(`/service/?page=${curpage}&rows=${eachpage}&id=${id}`)
             context.commit("setdata",data) 
         },
         async huntdataAsync(context,value){
-            let id=sessionStorage.getItem("users")
+            let id=JSON.parse( sessionStorage.getItem("users")).id
             const{data}=await axios.get(`/service/?value=${value}&id=${id}`,)
             context.commit("setdata",data)
         },
         // 上传数据
         async postdataAsync(context,form1){
-            let id=sessionStorage.getItem("users")
+            let id=JSON.parse( sessionStorage.getItem("users")).id
             await axios.post("/service",{...form1,id})
         },
         // 删除数据

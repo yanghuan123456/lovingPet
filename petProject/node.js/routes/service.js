@@ -3,9 +3,10 @@ var router = express.Router();
 const db = require('ykt-mongo');
 const hc = require("ykt-http-client");
 const multiparty = require('multiparty');
-<<<<<<< HEAD
+
 // hc.url("192.168.43.202:3001");
-hc.url("127.0.0.1:3001");
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
 
 /* GET users listing. */ //二级路由
 router.get('/', function (req, res, next) {
@@ -14,11 +15,11 @@ router.get('/', function (req, res, next) {
   let value=req.query.value;
   let id=req.query.id;
   if(value!=null){
-    hc.get("/services/",{"stores":value,page,rows,"users.$id":id}).then(function (data) {
+    hc.get("/services",{"stores":value,page,rows,"users.$id":id}).then(function (data) {
         res.send(data);
     });
   }if(value==null){
-    hc.get("/services/",{page,rows,"users.$id":id}).then(function (data) {
+    hc.get("/services",{page,rows,"users.$id":id}).then(function (data) {
       res.send(data);
   });
   }
@@ -35,17 +36,6 @@ router.post('/', function (req, res, next) {
   hc.post("/services",{stores,name,king,money,time,img,"users":JSON.stringify({$ref:"users",$id:id})}).then(function(data){
     res.send("suc");
   });
-=======
-const path = require('path');
-const hc = require('ykt-http-client');
-
-// hc.url("127.0.0.1:3001");
-hc.url("192.168.43.143:3001");
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('services', { title: 'Express' });
->>>>>>> 680c5b37f7d0af53e733ded374d073ca9a0c8c7e
 });
 
 //删除
