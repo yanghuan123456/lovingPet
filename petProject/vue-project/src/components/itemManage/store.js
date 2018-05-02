@@ -111,7 +111,9 @@ export default {
         async updatedimg(context,id){ //点击修改的时候去请求图片路径回来
         //    console.log("123456789daaaaaaaaaaaaaaa0-=")  
             await axios.get(`/items?type=img&id=${id}`).then(function(res){  
-                if (res.data.length>0) {
+               
+                if (res.data.rows.length>0) {
+                    console.log(res.data.rows[0].path)
                     context.state.imgid.imgid=res.data.rows[0]._id;
                     context.state.imgid.shopid=id;
                     context.state.url=res.data.rows[0].path;
