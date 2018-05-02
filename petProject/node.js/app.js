@@ -8,7 +8,7 @@ var session = require('express-session');
 
 var test = require('./routes/test');
 var shopStore = require('./routes/shopStore');
-var item = require('./routes/item');
+var items = require('./routes/items');
 var order = require('./routes/order');
 var pethost = require('./routes/pethost');
 var pet = require('./routes/pet');
@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));//静态目录根路径
 app.use('/', index);
 app.use('/shopStore', shopStore);
 app.use('/test', test);
-app.use('/item', item);
+app.use('/items', items);
 app.use('/order', order);
 app.use('/pethost', pethost);
 app.use('/pet', pet);

@@ -11,12 +11,15 @@ router.get('/users', function (req, res, next) {
     let value = req.query.value || null;
     let name = req.query.name || null;
     if (value == null) {
-        hc.get("/users", { page, rows }).then(function (data) {
+        hc.get("/customers", { page, rows }).then(function (data) {
+            // console.log(data)
             res.send(data);
         })
     } else {
-        hc.get("/users", { page, rows, [name]: value }).then(function (data) {
+        hc.get("/customers", { page, rows, [name]: value }).then(function (data) {
+            // console.log(data)
             res.send(data);
+            
         })
     }
 })
@@ -27,28 +30,28 @@ router.get('/storeManagers', function (req, res, next) {
     let value = req.query.value || null;
     let name = req.query.name || null;
     if (value == null) {
-        hc.get("/storeManagers", { page, rows }).then(function (data) {
+        hc.get("/users", { page, rows }).then(function (data) {
             res.send(data);
         })
     } else if (value == "申请中") {
-        hc.get("/storeManagers", { page, rows, userStatus: 0 }).then(function (data) {
+        hc.get("/users", { page, rows, userStatus: 0 }).then(function (data) {
             res.send(data);
         })
     } else {
-        hc.get("/storeManagers", { page, rows, userName: value }).then(function (data) {
+        hc.get("/users", { page, rows, userName: value }).then(function (data) {
             res.send(data);
         })
     }
 })
 //后台删除
 router.delete('/storeManagers/:id', function (req, res, next) {
-    hc.delete("/storeManagers/" + req.params.id).then(function (data) {
+    hc.delete("/users/" + req.params.id).then(function (data) {
         res.send("suc");
     });
 });
 //顾客删除
 router.delete('/users/:id', function (req, res, next) {
-    hc.delete("/users/" + req.params.id).then(function (data) {
+    hc.delete("/customers/" + req.params.id).then(function (data) {
         res.send("suc");
     });
 });
@@ -67,7 +70,7 @@ router.put('/users/:id', function (req, res, next) {
     let memberAdd = req.body.memberAdd || null;
     let memberPoint = req.body.memberPoint || null;
     let id = req.params.id;
-    hc.put("/users/" + id, { memberPhone, memberPwd, memberArea, memberAdd, memberPoint }).then(function () {
+    hc.put("/customers/" + id, { memberPhone, memberPwd, memberArea, memberAdd, memberPoint }).then(function () {
         res.send("suc");
     });
 });
@@ -87,7 +90,7 @@ router.put('/storeManagers/:id', function (req, res, next) {
     } else {
         userClass = "el-icon-close"
     }
-    hc.put("/storeManagers/" + id, { userPwd, userPhone, userMail, userStatus, userClass }).then(function () {
+    hc.put("/users/" + id, { userPwd, userPhone, userMail, userStatus, userClass }).then(function () {
         res.send("suc");
     });
 });

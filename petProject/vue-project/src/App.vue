@@ -5,7 +5,10 @@
 <script>
 export default {
   name: 'App',
-  
+  beforeMount(){
+    // localStorage.setItem("userAccount",{})
+    // localStorage.setItem("userPwd",{})
+  }
      
 
 }

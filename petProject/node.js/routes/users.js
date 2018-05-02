@@ -16,7 +16,7 @@ hc.url("127.0.0.1:3001");
 router.post('/', function (req, res, next) {
   let userPhone = req.body.userAcount-0
   let obj=req.body
-  console.log(obj)
+  // console.log(obj)
   hc.post("/login",req.body).then(function(data){
     // console.log(data)
     if (data.userAcount) {
