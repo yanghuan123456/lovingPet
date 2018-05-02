@@ -76,7 +76,7 @@
                 <el-input  v-model="form1.time"></el-input>
             </el-form-item>
 
-            <el-upload action="/users/upload" :on-success="uploadclick" multiple list-type="picture" style="margin-left:30px"> 
+            <el-upload action="/service/upload" :on-success="uploadclick" multiple list-type="picture" style="margin-left:30px"> 
                 <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip" style="margin-top:15px;width:300px">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>

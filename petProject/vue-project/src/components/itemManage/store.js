@@ -57,7 +57,8 @@ export default {
     },
     actions: {//异步
         async getdataAsync(context) { //列表渲染
-            const {data} =  await axios.get(`/items/?rows=${context.state.eachpage}&page=${context.state.curpage}`)
+            let id=JSON.parse(sessionStorage.getItem("users")).id;
+            const {data} =  await axios.get(`/items/?rows=${context.state.eachpage}&page=${context.state.curpage}&usersid=${id}`)
             context.state.shopList=data.rows;
             context.state.curpage=data.curpage;
             context.state.eachpage=data.eachpage;
@@ -66,18 +67,22 @@ export default {
         },
         async sureadd(context,formLabelAlign){ 
             // console.log("123456789");
+            let id=JSON.parse(sessionStorage.getItem("users")).id;
+            // console.log(id);
             let obj={
                 name:formLabelAlign.name,
                 money:formLabelAlign.money,
                 number:formLabelAlign.number,
                 qualit:formLabelAlign.qualit,
-                weight:formLabelAlign.weight
-            }
+                weight:formLabelAlign.weight,
+                id:id
+            };
             await axios.post("/items/", obj).then(function(res){  //新增
                 context.state.id.id=res.data._id;
                 context.state.shopList.push(res.data);
             });
             context.state.issee=!context.state.issee;
+            console.log( context.state.issee);
         },
         async searchshop(context,value){ //查询
              await axios.get(`/items?value=${value}&type=name`).then(function(res){  
