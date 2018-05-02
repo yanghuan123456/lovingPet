@@ -13,8 +13,7 @@ router.get('/', function (req, res, next) {
     let page = req.query.page || 1;
     let rows = req.query.rows || 5;
     let storeManagerId = req. query.storeManagerId||null;
-    console.log(storeManagerId)
-        hc.get("/orders",{storeManagerId,page,rows,submitType: "findJoin", ref: ["pets", "items","services","stores", "users"]}).then(function(data){
+        hc.get("/orders",{storeManagerId,page,rows,submitType: "findJoin", ref: ["pets", "items","services","stores", "customers"]}).then(function(data){
             for(let i =0 ; i<data.rows.length;i++){
                 if(data.rows[i].state==1){
                     data.rows[i].state="派送中"
@@ -49,7 +48,7 @@ router.post("/", function (req, res, next) {
     let storeManagerId=req.body.storeManagerId||"" 
     
     
-    hc.post("/orders", {storeManagerId, quantity,state:"1",dress, goods:{}, date,"pets": JSON.stringify({ $ref: "pets", $id: petsId }),"items": JSON.stringify({ $ref: "items", $id: itemsId }),"stores": JSON.stringify({ $ref: "stores", $id: storesId }),"services": JSON.stringify({ $ref: "services", $id: servicesId }),"users": JSON.stringify({ $ref: "users", $id: usersId }) }).then(function (data) {
+    hc.post("/orders", {storeManagerId, quantity,state:"1",dress, goods:{}, date,"pets": JSON.stringify({ $ref: "pets", $id: petsId }),"items": JSON.stringify({ $ref: "items", $id: itemsId }),"stores": JSON.stringify({ $ref: "stores", $id: storesId }),"services": JSON.stringify({ $ref: "services", $id: servicesId }),"customers": JSON.stringify({ $ref: "customers", $id: usersId }) }).then(function (data) {
       res.send(data);
     })
   })

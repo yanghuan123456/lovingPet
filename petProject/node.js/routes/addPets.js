@@ -12,7 +12,6 @@ router.post('/', function (req, res, next) {
   const { photo, variety, name, color, gender, money, age } = item
 
   hc.post("/pets", { photo, variety, name, color, gender, money, age, "users": JSON.stringify({ $ref: "users", $id: ID }) }).then(function () {//cinemas集合
-
       res.send("suc");
   });
 });
