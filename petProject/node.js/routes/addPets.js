@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
   let ID = req.body.id
   let item = req.body.item;
   const { photo, variety, name, color, gender, money, age } = item
-  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "storeManagers", $id: ID }) }).then(function () {//cinemas集合
+  hc.post("/pets", { photo, variety, name, color, gender, money, age, "users": JSON.stringify({ $ref: "users", $id: ID }) }).then(function () {//cinemas集合
       res.send("suc");
   });
 });
@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
   if (type) {
     obj[type] = value;
   }
-  hc.get("/pets", { page, rows, ...obj,submitType: "findJoin", ref: "users","storeManagers.$id":userId }).then(function (data) {
+  hc.get("/pets", { page, rows, ...obj,submitType: "findJoin", ref: "users","users.$id":userId }).then(function (data) {
     console.log(data,77)  
     res.send(data);
   })
