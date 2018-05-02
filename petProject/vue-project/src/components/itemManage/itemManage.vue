@@ -219,7 +219,8 @@ export default {
       this.getdataAsync()
         // console.log(`每页 ${val} 条`);
       },
-      handleCurrentChange(val) {       
+      handleCurrentChange(val) {
+        
         this.setcurpage(val);
          this.getdataAsync()
       },

@@ -65,7 +65,7 @@ export default {
             context.state.total=data.total;
         },
         async sureadd(context,formLabelAlign){ 
-            console.log("123456789");
+            // console.log("123456789");
             let obj={
                 name:formLabelAlign.name,
                 money:formLabelAlign.money,
@@ -87,7 +87,7 @@ export default {
         async deltele(context,id){   //删除
             await axios.delete("/items/"+id).then(function(res){      
             });
-            console.log(context.state.total,context.state.eachpage);
+            // console.log(context.state.total,context.state.eachpage);
             if(context.state.total%context.state.eachpage==1){
                 context.state.curpage--;
                 // console.log(context.state.curpage);
