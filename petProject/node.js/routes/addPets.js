@@ -10,11 +10,8 @@ router.post('/', function (req, res, next) {
   let ID = req.body.id
   let item = req.body.item;
   const { photo, variety, name, color, gender, money, age } = item
-<<<<<<< HEAD
-  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "users", $id: ID }) }).then(function () {//cinemas集合
-=======
+
   hc.post("/pets", { photo, variety, name, color, gender, money, age, "users": JSON.stringify({ $ref: "users", $id: ID }) }).then(function () {//cinemas集合
->>>>>>> a979c11fec245cc822785e21822786853f68bcb7
       res.send("suc");
   });
 });
