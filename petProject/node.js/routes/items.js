@@ -22,7 +22,6 @@ router.get('/', function (req, res, next) {
   }
   if (type == "img") {
     hc.get("/itemimages", { "moviesID.$id": id, page, rows, submitType: "findJoin", ref: "items" }).then(function (data) {
-      // console.log("datadatdatd111111111111111111111111111atdtadta1", data);
       res.send(data);
     })
   }else{
