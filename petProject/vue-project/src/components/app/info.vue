@@ -48,7 +48,9 @@
                 <el-menu-item index="/info/itemManage">
                     <span slot="title" style="fontSize:18px">商品管理</span>
                 </el-menu-item>
-                
+                <el-menu-item index="/info/pethostManage">
+                    <span slot="title" style="fontSize:18px">宠主管理</span>
+                </el-menu-item>
                 <el-menu-item index="/info/petManage">
                     <span slot="title" style="fontSize:18px">宠物管理</span>
                 </el-menu-item>
