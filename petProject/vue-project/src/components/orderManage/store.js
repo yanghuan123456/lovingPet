@@ -45,8 +45,8 @@ export default {
             state.eachpage = payload.eachpage
             state.total = payload.total
         },
-        getuserId(state,userId){
-            state.storeManagerId=userId
+        getuserId(state,id){
+            state.storeManagerId=id
         }
         ,
         setcurpage(state, curpage) {

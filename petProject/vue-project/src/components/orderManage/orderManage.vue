@@ -142,9 +142,9 @@ export default {
 
   created() {
     //   localStorage.setItem("users","5ae0330d380ae55643ea27a9")
-      let users=sessionStorage.getItem("users")
-
-      this.getuserId(users);
+      let users=JSON.parse(sessionStorage.getItem("users"))
+      let id = users.id
+      this.getuserId(id);
     this.getdataAsync();
   },
   methods: {
