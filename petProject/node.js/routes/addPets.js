@@ -7,8 +7,7 @@ const hc = require('ykt-http-client');
 hc.url("192.168.43.143:3001");
 //增加
 router.post('/', function (req, res, next) {
-  let ID = req.body.id
-  console.log(ID)
+  let ID = req.body.ids
   let item = req.body.item;
   const { photo, variety, name, color, gender, money, age } = item
   hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "storeManagers", $id: ID }) }).then(function () {//cinemas集合
