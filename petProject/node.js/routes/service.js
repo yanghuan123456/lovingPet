@@ -73,8 +73,8 @@ router.put('/:id', function (req, res, next){
   let king=req.body.king;
   let money=req.body.money;
   let time=req.body.time;
-  let img=req.body.img
-  hc.put("/services/"+req.params.id ,{stores,name,money,king,time,img}).then(function(data){
+  console.log(res.body)
+  hc.put("/services/"+req.params.id ,{stores,name,money,king,time}).then(function(data){
     res.send("suc");
   });
 })

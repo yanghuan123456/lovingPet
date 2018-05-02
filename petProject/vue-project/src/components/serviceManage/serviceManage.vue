@@ -144,10 +144,10 @@ import {mapState,mapMutations,mapGetters,mapActions} from "vuex";
         putclick(text){
             this.addtodo() 
             this.isForm=!this.isForm
-            this.form1=text  
+            this.form1=text
         },
-        puthandclick(text){
-            this.putdataAsync(text)
+        puthandclick(){
+            this.putdataAsync(this.form1)
             this.isForm=!this.isForm
             this.addtodo()
             this.form1={} 
