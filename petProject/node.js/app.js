@@ -10,10 +10,17 @@ var test = require('./routes/test');
 var shopStore = require('./routes/shopStore');
 var items = require('./routes/items');
 var order = require('./routes/order');
-var pethosts = require('./routes/pethosts');
+
+// var pethosts = require('./routes/pethosts');
 var addPets = require('./routes/addPets');
-var services = require('./routes/services');
+// var services = require('./routes/services');
+
+var pethost = require('./routes/pethost');
+var pet = require('./routes/pet');
+var service = require('./routes/service');
+
 var users = require('./routes/users');
+var userslist = require('./routes/userslist');
 var index = require('./routes/index');
 var addPetimg =require('./routes/addPetimg')
 var app = express();
@@ -41,11 +48,20 @@ app.use('/shopStore', shopStore);
 app.use('/test', test);
 app.use('/items', items);
 app.use('/order', order);
-app.use('/pethosts', pethosts);
+
+// app.use('/pethosts', pethosts);
 app.use('/addPets', addPets);
-app.use('/services', services);
+// app.use('/services', services);
 app.use('/users', users);
 app.use('/addPetimg', addPetimg);
+
+app.use('/pethost', pethost);
+app.use('/pet', pet);
+app.use('/service', service);
+app.use('/users', users);
+app.use('/userslist', userslist);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

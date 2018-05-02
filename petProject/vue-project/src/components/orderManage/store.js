@@ -29,7 +29,7 @@ export default {
         maxpage: 0,
         total: 0,
         isxiu: true,
-        storeManagerId:"5ae0330d380ae55643ea27a9",
+        storeManagerId:"",
         labelPosition: 'right',
         formLabelAlign: {
             quantity: '',
@@ -45,6 +45,10 @@ export default {
             state.eachpage = payload.eachpage
             state.total = payload.total
         },
+        getuserId(state,userId){
+            state.storeManagerId=userId
+        }
+        ,
         setcurpage(state, curpage) {
             state.curpage = curpage
         },
@@ -64,6 +68,7 @@ export default {
     actions: {//异步
         async getdataAsync(context) {
             const { curpage, eachpage ,storeManagerId} = context.state
+            // console.log(storeManagerId)
             const { data } = await axios(`/order/?page=${curpage}&rows=${eachpage}&storeManagerId=${storeManagerId}`)
             context.commit("setdata", data)
         },

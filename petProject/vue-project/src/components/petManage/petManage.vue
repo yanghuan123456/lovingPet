@@ -89,18 +89,6 @@
                     height="400px"
                     :modal="false"
                     :before-close="handleClose">                
-                    <!-- <el-upload
-                        class="avatar-uploader"
-                        action="/addPetimg/upload"
-                        multiple
-                        :data="this.id"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload"
-                        >
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload> -->
                     <el-upload
                       class="upload-demo"
                       action="/addPetimg/upload"
@@ -147,11 +135,23 @@
                         <el-form-item label="年龄" style="width:300px">
                             <el-input v-model="updateForm.age"></el-input>
                         </el-form-item>
-                        <el-form-item label="图片" style="width:300px">
+                        <el-form-item label="图片" style="width: 50px;height: 50px">
                             <!-- <el-input v-model="updateForm.photo"></el-input> -->
-                            <div>
+
+                    <el-upload
+                        class="avatar-uploader"
+                        action="/addPetimg/upload"
+                        multiple
+                        :data="this.id"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        >
+                        <img :src="updateForm.photo" class="avatar">
+                    </el-upload>
+
+                            <!-- <div>
                               <img :src="updateForm.photo" alt="">
-                            </div>
+                            </div> -->
                         </el-form-item>
                     </el-form>
                     <span slot="footer" class="dialog-footer">

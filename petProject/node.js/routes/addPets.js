@@ -3,12 +3,15 @@ var router = express.Router();
 const multiparty = require('multiparty');
 const path = require('path');
 const hc = require('ykt-http-client');
-hc.url("127.0.0.1:3001");
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
 //增加
 router.post('/', function (req, res, next) {
+  let ID = req.body.id
+  console.log(ID)
   let item = req.body.item;
   const { photo, variety, name, color, gender, money, age } = item
-  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "storeManagers", $id: "5ae0521b3d92450a9fb5264c" }) }).then(function () {//cinemas集合
+  hc.post("/pets", { photo, variety, name, color, gender, money, age, "storeManagers": JSON.stringify({ $ref: "storeManagers", $id: ID }) }).then(function () {//cinemas集合
       res.send("suc");
   });
 });

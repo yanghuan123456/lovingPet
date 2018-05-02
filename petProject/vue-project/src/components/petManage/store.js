@@ -54,7 +54,7 @@ export default {
             state.updateForm.variety = variety
             state.updateForm.id = _id
         },
-        getPetImage(state,payload){
+        getPetImage(state, payload) {
             state.petImages = payload
         }
 
@@ -62,7 +62,10 @@ export default {
     actions: {//异步
         //新增宠物
         async postPet(context, item) {
-            let { data } = await axios.post("/addPets", { item })
+            let userId = JSON.parse(sessionStorage.getItem('users'))
+            const { id } = userId
+            // console.log(id)
+            let { data } = await axios.post("/addPets", { item,id })
         },
         //获取所有数据
         async getPetByPageAsync(context) {

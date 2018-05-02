@@ -3,13 +3,15 @@ var router = express.Router();
 const multiparty = require('multiparty');
 const path = require('path');
 const hc = require("ykt-http-client");
-hc.url("127.0.0.1:3001");
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
 
 // 获取
 router.get('/', function (req, res, next) {
     let page = req.query.page || 1;
     let rows = req.query.rows || 5;
     let storeManagerId = req. query.storeManagerId||null;
+    console.log(storeManagerId)
         hc.get("/orders",{storeManagerId,page,rows,submitType: "findJoin", ref: ["pets", "items","services","stores", "users"]}).then(function(data){
             for(let i =0 ; i<data.rows.length;i++){
                 if(data.rows[i].state==1){

@@ -139,7 +139,12 @@ export default {
       "formLabelAlign"
     ])
   },
+
   created() {
+    //   localStorage.setItem("users","5ae0330d380ae55643ea27a9")
+      let users=sessionStorage.getItem("users")
+
+      this.getuserId(users);
     this.getdataAsync();
   },
   methods: {
@@ -148,7 +153,8 @@ export default {
       "setcurpage",
       "seteachpage",
       "xiugai",
-      "display"
+      "display",
+      "getuserId"
     ]),
     handleDelete(i, r) {
       this.remove(r._id);
