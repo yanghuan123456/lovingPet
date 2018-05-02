@@ -62,7 +62,7 @@ export default {
             context.state.curpage=data.curpage;
             context.state.eachpage=data.eachpage;
             context.state.maxpage=data.maxpage;
-            context.state.total=data.total;
+            context.state.total = data.total;
         },
         async sureadd(context,formLabelAlign){ 
             // console.log("123456789");
@@ -95,7 +95,8 @@ export default {
                 
             }
         },
-        async updatedshop(context,id){   //修改
+        async updatedshop(context, id) {   //修改
+            // console.log(id)
             // console.log(context.state.updated);
             await axios.put("/items/"+id,context.state.updated).then(function(res){  
                 context.state.issee=!context.state.issee;
@@ -103,12 +104,13 @@ export default {
           
         },
         async updatedimg(context,id){ //点击修改的时候去请求图片路径回来
-        //    console.log("123456789daaaaaaaaaaaaaaa0-=")
+        //    console.log("123456789daaaaaaaaaaaaaaa0-=")  
             await axios.get(`/items?type=img&id=${id}`).then(function(res){  
-                // console.log(res.data.rows);
-                context.state.imgid.imgid=res.data.rows[0]._id;
-                context.state.imgid.shopid=id;
-                context.state.url=res.data.rows[0].path;
+                if (res.data.length>0) {
+                    context.state.imgid.imgid=res.data.rows[0]._id;
+                    context.state.imgid.shopid=id;
+                    context.state.url=res.data.rows[0].path;
+                }
            });
        },
     },

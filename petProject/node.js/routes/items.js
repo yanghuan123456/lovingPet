@@ -3,7 +3,9 @@ var router = express.Router();
 const multiparty = require('multiparty');
 const path = require('path');
 const hc = require("ykt-http-client");
-hc.url("127.0.0.1:3001");
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
+
 /* GET home page. */
 
 
@@ -68,7 +70,7 @@ router.post("/uploader", function (req, res, next) {
       const path=files.file[0].path.replace("public", "").replace("/\\/g", "/");
       
       hc.delete("/itemimages/"+imgid).then(function(data){
-        console.log("idididi6666666666666666666666dididididid",imgid);
+        // console.log("idididi6666666666666666666666dididididid",imgid);
         res.send("suc")
         
       })

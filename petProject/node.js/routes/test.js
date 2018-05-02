@@ -5,9 +5,12 @@ const db = require("ykt-mongo");
 const hc = require("ykt-http-client");
 const multiparty = require("multiparty");
 const path = require;
-hc.url("127.0.0.1:3001");
 
-hc.url("localhost:3001");
+
+// hc.url("127.0.0.1:3001");
+hc.url("192.168.43.143:3001");
+// hc.url("localhost:3001");
+
 
 router.get("/", function (req, res, next) {
   console.log("GET 请求")
@@ -44,7 +47,7 @@ router.post('/upload', function (req, res, next) {
     } else {
       // 图片保存路径
       let str = files.file[0].path.replace('public', '').replace(/\\/g, '/')
-      let path = '127.0.0.1:3000' + str
+      let path = str
       console.log(path,str)
       // console.log(files.file[0].path)
       // res.send(files.file[0].path);
