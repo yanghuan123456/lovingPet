@@ -18,7 +18,7 @@
             <span>{{ props.row.stores.shopAdd }}</span>
           </el-form-item>
           <el-form-item label="买家电话：">
-            <span>{{ props.row.users.memberPhone }}</span>
+            <span>{{ props.row.customers.memberPhone }}</span>
           </el-form-item>
           <el-form-item label="送货地址：">
             <span>{{ props.row.dress }}</span>
@@ -61,7 +61,7 @@
       label="买家"
       width="160">
       <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.users.memberAcount}}</span>
+        <span style="margin-left: 10px">{{ scope.row.customers.memberAcount}}</span>
       </template>
     </el-table-column>
     <el-table-column
