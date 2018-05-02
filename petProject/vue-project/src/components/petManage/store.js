@@ -69,8 +69,10 @@ export default {
         },
         //获取所有数据
         async getPetByPageAsync(context) {
+            let userId = JSON.parse(sessionStorage.getItem('users'))
+            const { id } = userId
             const { curpage, eachpage } = context.state
-            const data = await fetch(`/addPets/?page=${curpage}&rows=${eachpage}`).then(response => response.json())
+            const data = await fetch(`/addPets/?page=${curpage}&rows=${eachpage}&userId=${id}`).then(response => response.json())
             context.commit('getPetByPage', data)
         },
         //新增图片

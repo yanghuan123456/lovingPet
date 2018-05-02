@@ -11,11 +11,13 @@ hc.url("192.168.43.143:3001");
 
 //渲染列表
 router.get('/', function (req, res, next) {
+  // console.log("Dasqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
   let page = req.query.page || 1;
   let rows = req.query.rows || 7;
   let type = req.query.type;
   let value = req.query.value || '';
-  let id=req.query.id;
+  let id=req.query.id||"";
+  let usersid=req.query.usersid||"";
   let obj = {};
   if (type) {
     obj[type] = value;
@@ -25,7 +27,7 @@ router.get('/', function (req, res, next) {
       res.send(data);
     })
   }else{
-    hc.get("/items", { page, rows, ...obj }).then(function (data) {
+    hc.get("/items", { page, rows, ...obj,submitType: "findJoin", ref: "users","users.$id":usersid }).then(function (data) {
       res.send(data);
     })
   }
@@ -37,8 +39,13 @@ router.post('/', function (req, res, next) {
   let number = req.body.number;
   let qualit = req.body.qualit;
   let weight = req.body.weight;
-  hc.post("/items", { name, money, number, qualit, weight}).then(function (data){
+  let id=req.body.id||"";
+  console.log("req.bodyreq.bodyreq.body",id);
+
+  hc.post("/items", { name, money, number, qualit, weight,"users":JSON.stringify({$ref:"users",$id:id})}).then(function (data){
+    
     res.send(data);
+   
   })
 })
 //新增图片
