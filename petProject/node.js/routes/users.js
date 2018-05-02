@@ -58,7 +58,7 @@ router.post('/', function (req, res, next) {
 });
 // 门店注册
 router.post('/up/', function (req, res, next) {
-  let obj = { ...req.body, userType: "门店管理员", userStatus: 0 }
+  let obj = { ...req.body, userType: "门店管理员", userStatus: "0" }
   hc.post('/users', obj).then(function (data) {
     res.send('suc')
   })
