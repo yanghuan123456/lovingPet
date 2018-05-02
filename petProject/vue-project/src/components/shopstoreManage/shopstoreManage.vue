@@ -397,7 +397,6 @@ import { mapMutations, mapState, mapGetters, mapActions } from "vuex";
                 this.getStoreData()
             }
         }
-
     }
 </script>
 
