@@ -24,9 +24,7 @@ export default {
     },
     actions: {
         async getUser(context,obj) {
-            console.log(obj)
             const {data} = await axios.post(`/users/up`,obj)
-            console.log(data)
             context.commit('setData',data)
         },
         async queryDataType(context, obj ) {
