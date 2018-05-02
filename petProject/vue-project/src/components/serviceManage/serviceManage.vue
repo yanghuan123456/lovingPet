@@ -36,6 +36,9 @@
             prop="img"
             label="图片"
             width="180">
+                <template slot-scope="scope" >
+                    <img :src="scope.row.img" alt="img" style="width:50px;height:50px">
+                </template>
             </el-table-column>
             <el-table-column
             fixed="right"
